@@ -25,6 +25,8 @@
     <link href="<?= base_url('').'/Assets' ?>/css/demo.min.css" rel="stylesheet"/>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+
   </head>
   <body class="layout-fluid">
     <div class="wrapper">

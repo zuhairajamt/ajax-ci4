@@ -123,7 +123,6 @@
       }, 'json');
     });
 
-    function editEmployee() {
       $('#update-employee-form').submit(function(e) {
         e.preventDefault();
         var form = this;
@@ -157,7 +156,7 @@
           }
         });
       });
-    }
+    
 
     $(document).on('click', '#deleteEmployeeBtn', function() {
       var employee_id = $(this).data('id');

@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nama_karyawan" class="col-form-label">Nama Karyawan</label>
-                        <input type="text"   class="form-control" id="nama_karyawan" name="nama_karyawan">
+                        <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan">
                     </div>
                     <div class="form-group">
                         <label for="usia" class="col-form-label">Usia</label>
