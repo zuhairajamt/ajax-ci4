@@ -56,7 +56,7 @@
     // });
 
     //ADD NEW EMPLOYEE
-    function addEmployee() {
+    
       $('#add-employee-form').submit(function(e) {
         e.preventDefault();
         var form = this;
@@ -86,7 +86,7 @@
           }
         });
       });
-    }
+    
 
     $('#tabel').DataTable({
       "processing": true,

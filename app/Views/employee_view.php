@@ -42,10 +42,12 @@
                     <div class="form-group">
                         <label for="nama_karyawan" class="col-form-label">Nama Karyawan</label>
                         <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan">
+                        <span class="text-danger error-text nama_karyawan_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="usia" class="col-form-label">Usia</label>
                         <input type="text" class="form-control" id="usia" name="usia">
+                        <span class="text-danger error-text usia_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="status_vaksin_1" class="col-form-label">Status Vaksin 1</label>
@@ -54,6 +56,7 @@
                             <option value="Belum">Belum Vaksin</option>
                             <option value="Sudah">Sudah Vaksin</option>
                         </select>
+                        <span class="text-danger error-text status_vaksin_1_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="status_vaksin_2" class="col-form-label">Status Vaksin 2</label>
@@ -61,12 +64,13 @@
                             <option value="">---Pilih Status Vaksin---</option>
                             <option value="Belum">Belum Vaksin</option>
                             <option value="Sudah">Sudah Vaksin</option>
+                            <span class="text-danger error-text status_vaksin_2_error"></span>
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save">Submit</button>
                 </div>
             </form>
         </div>
@@ -81,6 +85,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
-
+    
 </script>
 <!-- --- -->
