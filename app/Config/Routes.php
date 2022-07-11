@@ -46,6 +46,7 @@ $routes->set404Override();
  $routes->post('getEmployeeInfo','Employee::getEmployeeInfo',['as'=>'get.country.employee']);
  $routes->get('getAllEmployee','Employee::getAllEmployee',['as'=>'get.all.employee']);
  $routes->post('updateEmployee','Employee::updateEmployee',['as'=>'update.employee']);
+ $routes->post('deleteEmployee','Employee::deleteEmployee',['as'=>'delete.employee']);
 
 /*
  * --------------------------------------------------------------------

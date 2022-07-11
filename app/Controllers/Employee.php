@@ -123,7 +123,7 @@ class Employee extends Controller
                 "dt" => 5,
                 "formatter" => function ($d, $row) {
                     return "<div class='btn-group'>
-                                  <button class='btn btn-success' data-id='" . $row['id'] . "' id='updateEmployeeBtn' style='margin-right: 10px'>Update</button>
+                                  <a href='#' class='btn btn-success' data-id='" . $row['id'] . "' data-bs-toggle='modal' data-bs-target='.editEmployee' id='updateEmployeeBtn' style='margin-right: 10px'>Update</a>
                                   <button class='btn btn btn-danger' data-id='" . $row['id'] . "' id='deleteEmployeeBtn'>Delete</button>
                              </div>";
                 }
@@ -185,7 +185,7 @@ class Employee extends Controller
             $errors = $validation->getErrors();
             echo json_encode(['code' => 0, 'error' => $errors]);
         } else {
-            
+
             $data = [
                 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
                 'usia'         => $this->request->getPost('usia'),
@@ -201,6 +201,20 @@ class Employee extends Controller
             }
         }
     }
+
+    public function deleteEmployee()
+    {
+        $employeeModel = new \App\Models\Employee_model();
+        $employee_id = $this->request->getPost('employee_id');
+        $query = $employeeModel->delete($employee_id);
+
+        if ($query) {
+            echo json_encode(['code' => 1, 'msg' => 'Employee deleted Successfully']);
+        } else {
+            echo json_encode(['code' => 0, 'msg' => 'Something went wrong']);
+        }
+    }
+
 
 
     public function add()
