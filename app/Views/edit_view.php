@@ -1,4 +1,4 @@
-<div class="modal modal-blur fade editEmployee" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-blur fade editEmployee" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <form action="<?= route_to('update.employee'); ?>" method="post" id="update-employee-form" autocomplete="off">

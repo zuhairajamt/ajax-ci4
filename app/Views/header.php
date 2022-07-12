@@ -15,8 +15,8 @@
     <title>ICONPLUS</title>
     <!-- DATATABLES AND SWEETALERT2 STYLE-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
+    
     <!-- CSS files -->
     <link href="<?= base_url('').'/Assets' ?>/css/tabler.min.css" rel="stylesheet"/>
     <link href="<?= base_url('').'/Assets' ?>/css/tabler-flags.min.css" rel="stylesheet"/>

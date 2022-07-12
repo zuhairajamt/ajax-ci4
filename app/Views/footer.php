@@ -36,8 +36,9 @@
 <!-- ----- -->
 
 <!-- Specific Page Vendor -->
-<script src="<?= base_url('') ?>/Assets/vendor/pnotify/pnotify.custom.js"></script>
-<Script src="sweetalert2/sweetalert2.min.js"></SCript>
+<script src="<?= base_url('') ?>/assets/vendor/pnotify/pnotify.custom.js"></script>
+<!-- <script src="/publc/sweetalert2/sweetalert2.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.js"></script>
 
 </body>
 
@@ -56,37 +57,37 @@
     // });
 
     //ADD NEW EMPLOYEE
-    
-      $('#add-employee-form').submit(function(e) {
-        e.preventDefault();
-        var form = this;
-        $.ajax({
-          url: $(form).attr('action'),
-          method: $(form).attr('method'),
-          data: new FormData(form),
-          processData: false,
-          dataType: 'json',
-          contentType: false,
-          beforeSend: function() {
-            $(form).find('span.error-text').text('');
-          },
-          success: function(data) {
-            if ($.isEmptyObject(data.error)) {
-              if (data.code == 1) {
-                $(form)[0].reset();
-                $('#tabel').DataTable().ajax.reload(null, false);
-              } else {
-                alert(data.msg);
-              }
+
+    $('#add-employee-form').submit(function(e) {
+      e.preventDefault();
+      var form = this;
+      $.ajax({
+        url: $(form).attr('action'),
+        method: $(form).attr('method'),
+        data: new FormData(form),
+        processData: false,
+        dataType: 'json',
+        contentType: false,
+        beforeSend: function() {
+          $(form).find('span.error-text').text('');
+        },
+        success: function(data) {
+          if ($.isEmptyObject(data.error)) {
+            if (data.code == 1) {
+              $(form)[0].reset();
+              $('#tabel').DataTable().ajax.reload(null, false);
             } else {
-              $.each(data.error, function(prefix, val) {
-                $(form).find('span.' + prefix + '_error').text(val);
-              });
+              alert(data.msg);
             }
+          } else {
+            $.each(data.error, function(prefix, val) {
+              $(form).find('span.' + prefix + '_error').text(val);
+            });
           }
-        });
+        }
       });
-    
+    });
+
 
     $('#tabel').DataTable({
       "processing": true,
@@ -123,6 +124,7 @@
       }, 'json');
     });
 
+    function editEmployee() {
       $('#update-employee-form').submit(function(e) {
         e.preventDefault();
         var form = this;
@@ -156,7 +158,7 @@
           }
         });
       });
-    
+    }
 
     $(document).on('click', '#deleteEmployeeBtn', function() {
       var employee_id = $(this).data('id');
@@ -165,7 +167,7 @@
       swal.fire({
 
         title: 'Are you sure?',
-        html: 'You want to delete this employee',
+        html: 'You want to delete this country',
         showCloseButton: true,
         showCancelButton: true,
         cancelButtonText: 'Cancel',
@@ -190,8 +192,6 @@
         }
       });
     });
-
-
 
   });
 </script>

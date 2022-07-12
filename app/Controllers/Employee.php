@@ -123,7 +123,7 @@ class Employee extends Controller
                 "dt" => 5,
                 "formatter" => function ($d, $row) {
                     return "<div class='btn-group'>
-                                  <a href='#' class='btn btn-success' data-id='" . $row['id'] . "' data-bs-toggle='modal' data-bs-target='.editEmployee' id='updateEmployeeBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></a>
+                                  <button class='btn btn-success' data-id='" . $row['id'] . "' id='updateEmployeeBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></button>
                                   <button class='btn btn btn-danger' data-id='" . $row['id'] . "' id='deleteEmployeeBtn'> <i class='ti ti-trash'></i></button>
                              </div>";
                 }
