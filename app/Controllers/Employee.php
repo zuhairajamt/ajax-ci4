@@ -37,14 +37,13 @@ class Employee extends Controller
         $validation = \Config\Services::validation();
         $this->validate([
             'nama_karyawan' => [
-                'rules' => 'required|is_unique[employees.nama_karyawan]',
+                'rules' => 'required|alpha_dash',
                 'errors' => [
-                    'required' => 'Nama Karyawan is required',
-                    'is_unique' => 'This name is already exists',
+                    'required' => 'Nama Karyawan is required'
                 ]
             ],
             'usia' => [
-                'rules' => 'required',
+                'rules' => 'required|integer|alpha_dash|greater_than_equal_to[10]|less_than_equal_to[100]',
                 'errors' => [
                     'required' => 'Usia is required'
                 ]
@@ -147,60 +146,6 @@ class Employee extends Controller
         }
     }
 
-    public function updateEmployee()
-    {
-        $employeeModel = new \App\Models\Employee_model();
-        $validation = \Config\Services::validation();
-        $cid = $this->request->getPost('cid');
-
-        $this->validate([
-            'nama_karyawan' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Nama Karyawan is required',
-                ]
-            ],
-            'usia' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Usia is required'
-                ]
-            ],
-            'status_vaksin_1' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Status Vaksin 1 is required'
-                ]
-            ],
-            'status_vaksin_2' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Status Vaksin 2 is required'
-                ]
-            ]
-        ]);
-
-        if ($validation->run() == FALSE) {
-            $errors = $validation->getErrors();
-            echo json_encode(['code' => 0, 'error' => $errors]);
-        } else {
-
-            $data = [
-                'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-                'usia'         => $this->request->getPost('usia'),
-                'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
-                'status_vaksin_2'  => $this->request->getPost('status_vaksin_2')
-            ];
-            $query = $employeeModel->update($cid, $data);
-
-            if ($query) {
-                echo json_encode(['code' => 1, 'msg' => 'Employee info have been updated successfully']);
-            } else {
-                echo json_encode(['code' => 0, 'msg' => 'Something went wrong']);
-            }
-        }
-    }
-
     public function deleteEmployee()
     {
         $employeeModel = new \App\Models\Employee_model();
@@ -229,13 +174,13 @@ class Employee extends Controller
 
         $this->validate([
             'nama_karyawan' => [
-                'rules' => 'required',
+                'rules' => 'required|alpha_dash|less_than_equal_to[50]',
                 'errors' => [
-                    'required' => 'Nama Karyawan is required',
+                    'required' => 'Nama Karyawan is required'
                 ]
             ],
             'usia' => [
-                'rules' => 'required',
+                'rules' => 'required|integer|alpha_dash|greater_than_equal_to[10]|less_than_equal_to[100]',
                 'errors' => [
                     'required' => 'Usia is required'
                 ]

@@ -44,6 +44,7 @@
 
 <script>
   $(document).ready(function() {
+
     $('#add-employee-form').submit(function(e) {
       e.preventDefault();
       var form = this;
