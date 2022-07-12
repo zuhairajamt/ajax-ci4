@@ -155,10 +155,9 @@ class Employee extends Controller
 
         $this->validate([
             'nama_karyawan' => [
-                'rules' => 'required|is_unique[employees.nama_karyawan]',
+                'rules' => 'required',
                 'errors' => [
                     'required' => 'Nama Karyawan is required',
-                    'is_unique' => 'This name is already exists',
                 ]
             ],
             'usia' => [
@@ -225,22 +224,56 @@ class Employee extends Controller
 
     public function update()
     {
+        $validation = \Config\Services::validation();
         $model = new Employee_model;
-        $id = $this->request->getPost("edit_id");
-        $data = [
-            'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            'usia'         => $this->request->getPost('usia'),
-            'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
-            'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
-        ];
-        $update = $model->update($id, $data);
 
-        if ($update) {
-            $output = ['status' => 'Data berhasil diupdate'];
-            return $this->response->setJSON($output);
+        $this->validate([
+            'nama_karyawan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama Karyawan is required',
+                ]
+            ],
+            'usia' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Usia is required'
+                ]
+            ],
+            'status_vaksin_1' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Status Vaksin 1 is required'
+                ]
+            ],
+            'status_vaksin_2' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Status Vaksin 2 is required'
+                ]
+            ]
+        ]);
+
+        if ($validation->run() == FALSE) {
+            $errors = $validation->getErrors();
+            echo json_encode(['code' => 0, 'error' => $errors]);
         } else {
-            $output = ['status' => 'Data gagal diupdate'];
-            return $this->response->setJSON($output);
+            $id = $this->request->getPost("edit_id");
+            $data = [
+                'nama_karyawan' => $this->request->getPost('nama_karyawan'),
+                'usia'         => $this->request->getPost('usia'),
+                'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
+                'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
+            ];
+            $update = $model->update($id, $data);
+
+            if ($update) {
+                $output = ['status' => 'Data berhasil diupdate'];
+                return $this->response->setJSON($output);
+            } else {
+                $output = ['status' => 'Data gagal diupdate'];
+                return $this->response->setJSON($output);
+            }
         }
     }
 }
