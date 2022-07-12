@@ -154,7 +154,7 @@
       swal.fire({
 
         title: 'Are you sure?',
-        html: 'You want to delete this country',
+        html: 'You want to delete this employee',
         showCloseButton: true,
         showCancelButton: true,
         cancelButtonText: 'Cancel',

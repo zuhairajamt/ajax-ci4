@@ -44,7 +44,7 @@ class Employee extends Controller
                 ]
             ],
             'usia' => [
-                'rules' => 'required|integer|alpha_dash|greater_than_equal_to[10]|less_than_equal_to[100]',
+                'rules' => 'required|integer|greater_than_equal_to[10]|less_than_equal_to[100]',
                 'errors' => [
                     'required' => 'Usia is required',
                 ]
@@ -181,7 +181,7 @@ class Employee extends Controller
                 ]
             ],
             'usia' => [
-                'rules' => 'required|integer|alpha_dash|greater_than_equal_to[10]|less_than_equal_to[100]',
+                'rules' => 'required|integer|greater_than_equal_to[10]|less_than_equal_to[100]',
                 'errors' => [
                     'required' => 'Usia is required'
                 ]

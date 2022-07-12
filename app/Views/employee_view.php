@@ -46,7 +46,7 @@
                     </div>
                     <div class="form-group">
                         <label for="usia" class="col-form-label">Usia</label>
-                        <input type="text" class="form-control" id="usia" name="usia">
+                        <input type="number" class="form-control" id="usia" name="usia">
                         <span class="text-danger error-text usia_error"></span>
                     </div>
                     <div class="form-group">
