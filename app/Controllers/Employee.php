@@ -123,7 +123,7 @@ class Employee extends Controller
                 "dt" => 5,
                 "formatter" => function ($d, $row) {
                     return "<div class='btn-group'>
-                                  <button class='btn btn-success' data-id='" . $row['id'] . "' id='updateEmployeeBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></button>
+                                  <a class='btn btn-success btn-edit' data-id='" . $row['id'] . "' data-bs-toggle='modal' data-bs-target='#editModal' id='updateEmployeeBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></a>
                                   <button class='btn btn btn-danger' data-id='" . $row['id'] . "' id='deleteEmployeeBtn'> <i class='ti ti-trash'></i></button>
                              </div>";
                 }
@@ -212,6 +212,35 @@ class Employee extends Controller
             echo json_encode(['code' => 1, 'msg' => 'Employee deleted Successfully']);
         } else {
             echo json_encode(['code' => 0, 'msg' => 'Something went wrong']);
+        }
+    }
+
+    public function edit()
+    {
+        $model = new Employee_model();
+        $id = $this->request->getPost("edit_id");
+        $data['employee'] = $model->find($id);
+        return $this->response->setJSON($data);
+    }
+
+    public function update()
+    {
+        $model = new Employee_model;
+        $id = $this->request->getPost("edit_id");
+        $data = [
+            'nama_karyawan' => $this->request->getPost('nama_karyawan'),
+            'usia'         => $this->request->getPost('usia'),
+            'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
+            'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
+        ];
+        $update = $model->update($id, $data);
+
+        if ($update) {
+            $output = ['status' => 'Data berhasil diupdate'];
+            return $this->response->setJSON($output);
+        } else {
+            $output = ['status' => 'Data gagal diupdate'];
+            return $this->response->setJSON($output);
         }
     }
 }

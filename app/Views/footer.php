@@ -44,20 +44,6 @@
 
 <script>
   $(document).ready(function() {
-    // $('#tabel').DataTable({
-    //     processing: true,
-    //     serverSide: true,
-    //     order: [], //init datatable not ordering
-    //    
-
-    //     "columnDefs": [{
-    //         "data": null,
-    //         "targets": -1,
-    //     }]
-    // });
-
-    //ADD NEW EMPLOYEE
-
     $('#add-employee-form').submit(function(e) {
       e.preventDefault();
       var form = this;
@@ -107,58 +93,58 @@
       }
     });
 
-    $(document).on("click", "#updateEmployeeBtn", function() {
-      var employee_id = $(this).data('id');
-      //alert('hi');
-
-      $.post("<?= route_to('get.employee.info') ?>", function(data) {
-        //   alert(data.results.employee_name);
-
-        $('.editEmployee').find('form').find('input[name="cid"]').val(data.results.id);
-        $('.editEmployee').find('form').find('input[name="nama_karyawan"]').val(data.results.nama_karyawan);
-        $('.editEmployee').find('form').find('input[name="usia"]').val(data.results.usia);
-        $('.editEmployee').find('form').find('input[name="status_vaksin_1"]').val(data.results.status_vaksin_1);
-        $('.editEmployee').find('form').find('input[name="status_vaksin_2"]').val(data.results.status_vaksin_2);
-        $('.editEmployee').find('form').find('span.error-text').text('');
-        $('.editEmployee').modal('show');
-      }, 'json');
-    });
-
-    function editEmployee() {
-      $('#update-employee-form').submit(function(e) {
-        e.preventDefault();
-        var form = this;
-
-        $.ajax({
-          url: $(form).attr('action'),
-          method: $(form).attr('method'),
-          data: new FormData(form),
-          processData: false,
-          dataType: 'json',
-          contentType: false,
-          beforeSend: function() {
-            $(form).find('span.error-text').text('');
-          },
-          success: function(data) {
-
-            if ($.isEmptyObject(data.error)) {
-
-              if (data.code == 1) {
-                $('#"update-employee-form"').DataTable().ajax.reload(null, false);
-                $('.editEmployee').modal('hide');
-              } else {
-                alert(data.msg);
-              }
-
-            } else {
-              $.each(data.error, function(prefix, val) {
-                $(form).find('span.' + prefix + '_error').text(val);
-              });
-            }
-          }
-        });
+    $(document).on('click', '.btn-edit', function(e) {
+      e.preventDefault();
+      // var edit_id = $(this).closest('tr').find('.krywn_id').text();
+      var edit_id = $(this).attr('data-id');
+      $.ajax({
+        method: "post",
+        url: "employee/edit",
+        data: {
+          'edit_id': edit_id
+        },
+        success: function(response) {
+          $.each(response, function(key, value) {
+            $('#edit_id').val(value['id']);
+            $('#nama_karyawan_edit').val(value['nama_karyawan']);
+            $('#usia_edit').val(value['usia']);
+            $('#status_vaksin_1_edit').val(value['status_vaksin_1']);
+            $('#status_vaksin_2_edit').val(value['status_vaksin_2']);
+            $('#editModal').modal('show');
+          });
+        }
       });
-    }
+      e.preventDefault();
+    });
+    $(document).on('click', '.btn-update', function(e) {
+      e.preventDefault();
+      // var id = $(this).attr('data-id');
+      var data = {
+        'edit_id': $('#edit_id').val(),
+        'nama_karyawan': $('#nama_karyawan_edit').val(),
+        'usia': $('#usia_edit').val(),
+        'status_vaksin_1': $('#status_vaksin_1_edit').val(),
+        'status_vaksin_2': $('#status_vaksin_2_edit').val(),
+      };
+      $.ajax({
+        method: "post",
+        url: "employee/update",
+        data: data,
+        success: function(response) {
+          if (response.status == "Data berhasil diupdate") {
+            $('#editModal').modal('hide');
+            // $('#tableData').html("");
+            // display();
+            $('#tabel').DataTable().ajax.reload(null, false);
+
+            swal("Berhasil", response.status, "success");
+          } else {
+            swal("Gagal", response.status, "error");
+          }
+        }
+      });
+      e.preventDefault();
+    });
 
     $(document).on('click', '#deleteEmployeeBtn', function() {
       var employee_id = $(this).data('id');
