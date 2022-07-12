@@ -37,15 +37,16 @@ class Employee extends Controller
         $validation = \Config\Services::validation();
         $this->validate([
             'nama_karyawan' => [
-                'rules' => 'required|alpha_dash',
+                'rules' => 'required|max_length[50]',
                 'errors' => [
-                    'required' => 'Nama Karyawan is required'
+                    'required' => 'Nama Karyawan is required',
+                    'max_length' => 'Your name is too long'
                 ]
             ],
             'usia' => [
                 'rules' => 'required|integer|alpha_dash|greater_than_equal_to[10]|less_than_equal_to[100]',
                 'errors' => [
-                    'required' => 'Usia is required'
+                    'required' => 'Usia is required',
                 ]
             ],
             'status_vaksin_1' => [
@@ -174,7 +175,7 @@ class Employee extends Controller
 
         $this->validate([
             'nama_karyawan' => [
-                'rules' => 'required|alpha_dash|less_than_equal_to[50]',
+                'rules' => 'required|max_length[50]',
                 'errors' => [
                     'required' => 'Nama Karyawan is required'
                 ]
