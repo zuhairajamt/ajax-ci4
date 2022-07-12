@@ -59,9 +59,11 @@
           $(form).find('span.error-text').text('');
         },
         success: function(data) {
+          
           if ($.isEmptyObject(data.error)) {
             if (data.code == 1) {
               $(form)[0].reset();
+              $('#exampleModal').modal('hide');
               $('#tabel').DataTable().ajax.reload(null, false);
             } else {
               alert(data.msg);
@@ -70,6 +72,7 @@
             $.each(data.error, function(prefix, val) {
               $(form).find('span.' + prefix + '_error').text(val);
             });
+           
           }
         }
       });
@@ -138,9 +141,9 @@
             // display();
             $('#tabel').DataTable().ajax.reload(null, false);
 
-            swal("Berhasil", response.status, "success");
+            swal.fire("Berhasil", response.status, "success");
           } else {
-            swal("Gagal", response.status, "error");
+            swal.fire("Gagal", response.status, "error");
           }
         }
       });
