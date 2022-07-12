@@ -59,7 +59,7 @@
           $(form).find('span.error-text').text('');
         },
         success: function(data) {
-          
+
           if ($.isEmptyObject(data.error)) {
             if (data.code == 1) {
               $(form)[0].reset();
@@ -72,7 +72,7 @@
             $.each(data.error, function(prefix, val) {
               $(form).find('span.' + prefix + '_error').text(val);
             });
-           
+
           }
         }
       });
@@ -157,15 +157,12 @@
       swal.fire({
 
         title: 'Are you sure?',
-        html: 'You want to delete this employee',
-        showCloseButton: true,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
         showCancelButton: true,
-        cancelButtonText: 'Cancel',
-        confirmButtonText: 'Yes, delete',
+        confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonColor: '#556eeb',
-        width: 300,
-        allowOutsideClick: false
+        confirmButtonText: 'Yes, delete it!'
 
       }).then(function(result) {
         if (result.value) {
