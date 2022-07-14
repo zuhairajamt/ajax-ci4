@@ -31,6 +31,10 @@ class Users extends Migration
             'user_created_at'      => [
                 'type'           => 'timestamp'
             ],
+            'role'               => [
+                'type'           => 'enum("admin", "user")',
+
+            ]
         ]);
  
         // Membuat primary key
