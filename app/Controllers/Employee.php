@@ -77,9 +77,9 @@ class Employee extends Controller
             ];
             $query = $employeeModel->insert($data);
             if ($query) {
-                echo json_encode(['code' => 1, 'msg' => 'New employee has been saved to database']);
+                echo json_encode(['code' => 1, 'msg' => 'Data karyawan behasil ditambahkan']);
             } else {
-                echo json_encode(['code' => 0, 'msg' => 'Something went wrong']);
+                echo json_encode(['code' => 0, 'msg' => 'Data karyawan gagal ditambahkan']);
             }
         }
     }
@@ -154,9 +154,9 @@ class Employee extends Controller
         $query = $employeeModel->delete($employee_id);
 
         if ($query) {
-            echo json_encode(['code' => 1, 'msg' => 'Employee deleted Successfully']);
+            echo json_encode(['code' => 1, 'msg' => 'Data karyawan behasil dihapus']);
         } else {
-            echo json_encode(['code' => 0, 'msg' => 'Something went wrong']);
+            echo json_encode(['code' => 0, 'msg' => 'Data karyawan gagal dihapus']);
         }
     }
 

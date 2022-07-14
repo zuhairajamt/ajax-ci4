@@ -64,6 +64,11 @@
             if (data.code == 1) {
               $(form)[0].reset();
               $('#exampleModal').modal('hide');
+              Swal.fire(
+                'Berhasil!',
+                'Data karyawan berhasil ditambahkan.',
+                'success'
+              )
               $('#tabel').DataTable().ajax.reload(null, false);
             } else {
               alert(data.msg);
@@ -77,7 +82,6 @@
         }
       });
     });
-
 
     $('#tabel').DataTable({
       "processing": true,
@@ -171,6 +175,11 @@
             employee_id: employee_id
           }, function(data) {
             if (data.code == 1) {
+              Swal.fire(
+                'Deleted!',
+                'Data karyawan berhasil dihapus.',
+                'success'
+              )
               $('#tabel').DataTable().ajax.reload(null, false);
             } else {
               alert(data.msg);

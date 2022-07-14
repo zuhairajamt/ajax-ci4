@@ -64,8 +64,8 @@
                             <option value="">---Pilih Status Vaksin---</option>
                             <option value="Belum">Belum Vaksin</option>
                             <option value="Sudah">Sudah Vaksin</option>
-                            <span class="text-danger error-text status_vaksin_2_error"></span>
                         </select>
+                        <span class="text-danger error-text status_vaksin_2_error"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
