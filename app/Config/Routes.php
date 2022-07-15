@@ -49,6 +49,11 @@ $routes->get('/', 'Employee::index',['filter' => 'auth']);
  $routes->post('updateEmployee','Employee::updateEmployee',['as'=>'update.employee']);
  $routes->post('deleteEmployee','Employee::deleteEmployee',['as'=>'delete.employee']);
 
+ // Admin routes
+$routes->group("admin", ["filter" => "auth"], function ($routes) {
+    $routes->get("/", "AdminController::index");
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
