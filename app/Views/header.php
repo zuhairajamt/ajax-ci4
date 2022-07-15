@@ -32,9 +32,19 @@
     a.buttons-collection {
         margin-left: 1em;
     }
+
+    th, td { white-space: nowrap; }
+    div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
  
     th input {
-        width: 80%;
+        width: 90%;
+    }
+
+    tfoot tr th:last-child{
+      pointer-events: none; 
     }
 
     /*::placeholder {

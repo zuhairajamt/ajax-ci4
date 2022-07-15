@@ -31,6 +31,7 @@
                             <th>Usia</th>
                             <th>Status Vaksin 1</th>
                             <th>Status Vaksin 2</th>
+                            <th>Aksi</th>
                         </tr>
                     </tfoot>
                 </table>

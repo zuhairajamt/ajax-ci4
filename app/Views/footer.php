@@ -86,7 +86,7 @@
 
     $('#tabel tfoot th').each(function(i) {
       var title = $('#tabel thead th').eq($(this).index()).text();
-      $(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '"  style = "margin-right= -90px;"/>');
+      $(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '" />');
     });
 
     var table = $('#tabel').DataTable({
