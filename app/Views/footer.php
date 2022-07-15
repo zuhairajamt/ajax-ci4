@@ -92,7 +92,7 @@
     var table = $('#tabel').DataTable({
       orderCellsTop: true,
       fixedHeader: true,
-      scrollY: "300px",
+      scrollY: "600px",
       scrollX: true,
       scrollCollapse: true,
       fixedColumns: true,
