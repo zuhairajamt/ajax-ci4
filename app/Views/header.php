@@ -33,6 +33,10 @@
         margin-left: 1em;
     }
 
+    thead input {
+        width: 100%;
+    }
+
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: red;

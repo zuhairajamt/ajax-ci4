@@ -83,8 +83,12 @@
         }
       });
     });
+    $('#tabel tfoot th').each(function(i) {
+      var title = $('#tabel thead th').eq($(this).index()).text();
+      $(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '" />');
+    });
 
-    $('#tabel').DataTable({
+    var table = $('#tabel').DataTable({
       "processing": true,
       "serverSide": true,
       "ajax": "<?= route_to('get.all.employee'); ?>",
@@ -103,6 +107,14 @@
       "fnCreatedRow": function(row, data, index) {
         $('td', row).eq(0).html(index + 1);
       }
+    });
+
+    // Filter event handler
+    $(table.table().container()).on('keyup', 'tfoot input', function() {
+      table
+        .column($(this).data('index'))
+        .search(this.value)
+        .draw();
     });
 
     $(document).on('click', '.btn-edit', function(e) {

@@ -23,6 +23,15 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama Karyawan</th>
+                            <th>Usia</th>
+                            <th>Status Vaksin 1</th>
+                            <th>Status Vaksin 2</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -124,9 +133,7 @@
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-<script>
-
-</script>
+<script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script>
 <!-- --- -->
 
 
