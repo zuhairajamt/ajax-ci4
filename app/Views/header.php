@@ -32,7 +32,7 @@
     a.buttons-collection {
         margin-left: 1em;
     }
-    
+
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: red;
@@ -49,6 +49,17 @@
       /* Microsoft Edge */
       color: red;
     }
+    .buttons-html5{
+      float: left;
+      margin-left: 20px;
+      padding: 2px 15px;
+      background-color: #467fd0;
+      color: white;
+      border: #467fd0 1px solid;
+      border-radius: 5px;
+    }
+
+    
   </style>
 
 </head>

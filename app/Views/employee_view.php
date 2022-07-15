@@ -1,7 +1,7 @@
 <div class="container pt-5">
     <div class="text-right">
         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</a>
-        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">Import CSV</a>
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">Impor CSV</a>
 
     </div>
 
@@ -33,6 +33,12 @@
 <div class="modal modal-blur fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Impor CSV</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <?php
             if (session()->get("success")) {
             ?>
@@ -42,19 +48,24 @@
             <?php
             }
             ?>
-            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="<?= site_url('/employee') ?>" id="frm-add-students">
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="file">File:</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" required id="file" placeholder="Enter file" name="file">
+            <div class="modal-body">
+                <form class="form-horizontal" enctype="multipart/form-data" method="post" action="<?= site_url('/employee') ?>" id="frm-add-students">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="file">File:</label>
+                        <div class="col-sm-10">
+                            <input type="file" class="form-control" required id="file" placeholder="Enter file" name="file">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+
+                </form>
+            </div>
         </div>
     </div>
 </div>

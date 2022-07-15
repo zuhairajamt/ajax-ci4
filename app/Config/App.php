@@ -409,6 +409,7 @@ class App extends BaseConfig
      * @var bool
      */
     public $CSRFRegenerate = true;
+    
 
     /**
      * --------------------------------------------------------------------------
