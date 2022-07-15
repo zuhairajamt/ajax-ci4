@@ -29,6 +29,10 @@
   <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
 
   <style>
+    a.buttons-collection {
+        margin-left: 1em;
+    }
+    
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: red;

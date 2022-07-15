@@ -1,6 +1,8 @@
 <div class="container pt-5">
     <div class="text-right">
         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</a>
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">Import CSV</a>
+
     </div>
 
     <div class="card">
@@ -23,6 +25,36 @@
                     </thead>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+<!--   Modal Import CSV-->
+<div class="modal modal-blur fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <?php
+            if (session()->get("success")) {
+            ?>
+                <div class="alert alert-success">
+                    <?= session()->get("success") ?>
+                </div>
+            <?php
+            }
+            ?>
+            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="<?= site_url('/employee') ?>" id="frm-add-students">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="file">File:</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" required id="file" placeholder="Enter file" name="file">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -84,7 +116,29 @@
 <!-- DATATABLES SCRIPT -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.6.3/papaparse.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
 <script>
-    
+
 </script>
 <!-- --- -->
+
+
+
+
+
+<!-- buat simpan aja -->
+<!-- <div>
+    <form action="base url bala bla bla ?>" method="post" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+            <div class="mb-3">
+                <input type="file" name="file" class="form-control" id="file">
+            </div>
+        </div>
+        <div class="d-grid">
+            <input type="submit" name="submit" value="Upload" class="btn btn-dark" />
+        </div>
+    </form>
+</div> -->

@@ -40,6 +40,7 @@
 <!-- <script src="/publc/sweetalert2/sweetalert2.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.js"></script>
 
+
 </body>
 
 <script>
@@ -88,6 +89,9 @@
       "serverSide": true,
       "ajax": "<?= route_to('get.all.employee'); ?>",
       "dom": "lBfrtip",
+      buttons: [
+        'csv'
+      ],
       stateSave: true,
       info: true,
       "iDisplayLength": 5,

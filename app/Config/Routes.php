@@ -54,6 +54,10 @@ $routes->group("admin", ["filter" => "auth"], function ($routes) {
     $routes->get("/", "AdminController::index");
 });
 
+// Impor route
+$routes->post('import-csv', 'Employee::importCsvToDb');
+$routes->post('/employee', 'Employee::uploadEmployee');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

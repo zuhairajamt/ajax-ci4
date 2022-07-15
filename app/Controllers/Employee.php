@@ -222,4 +222,111 @@ class Employee extends Controller
             }
         }
     }
+
+
+    //----------------------- Import csv -----------------------//
+    public function importCsvToDb()
+    {
+        $input = $this->validate([
+            'file' => 'uploaded[file]|max_size[file,8024]|ext_in[file,csv],'
+        ]);
+        if (!$input) {
+            $data['validation'] = $this->validator;
+            return view('index', $data); 
+        }else{
+            if($file = $this->request->getFile('file')) {
+            if ($file->isValid() && ! $file->hasMoved()) {
+                $newName = $file->getRandomName();
+                $file->move('../public/csvfile', $newName);
+                $file = fopen("../public/csvfile/".$newName,"r");
+                $i = 0;
+                $numberOfFields = 6;
+                $csvArr = array();
+                
+                while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
+                    $num = count($filedata);
+                    if($i > 0 && $num == $numberOfFields){ 
+                        
+                        // $csvArr[$i]['No.'] = $filedata[0];
+                        // $csvArr[$i]['Nama Kayawan'] = $filedata[1];
+                        // $csvArr[$i]['Usia'] = $filedata[2];
+                        // $csvArr[$i]['Status Vaksin 1'] = $filedata[3];
+                        // $csvArr[$i]['Status Vaksin 2'] = $filedata[4];
+                        // $csvArr[$i]['Aksi'] = $filedata[5];
+
+                        // $csvArr[$i]['id' || 'No'] = $filedata[0];
+                        // $csvArr[$i]['nama_karyawan' || 'Nama Karyawan'] = $filedata[1];
+                        // $csvArr[$i]['usia' || 'Usia'] = $filedata[2];
+                        // $csvArr[$i]['status_vaksin_1' || 'Status Vaksin 1'] = $filedata[3];
+                        // $csvArr[$i]['status_vaksin_2' || 'Status Vaksin 2'] = $filedata[4];
+                        // $csvArr[$i]['aksi' || 'Aksi'] = $filedata[5];
+
+                        $csvArr[$i]['id'] = $filedata[0];
+                        $csvArr[$i]['nama_karyawan'] = $filedata[1];
+                        $csvArr[$i]['usia'] = $filedata[2];
+                        $csvArr[$i]['status_vaksin_1'] = $filedata[3];
+                        $csvArr[$i]['status_vaksin_2'] = $filedata[4];
+                        $csvArr[$i]['aksi'] = $filedata[5];
+                    }
+                    $i++;
+                }
+                fclose($file);
+                $count = 0;
+                foreach($csvArr as $userdata){
+                    $employee = new Employee_model();
+                    $findRecord = $employee->where('id', $userdata['id'])->countAllResults();
+                    if($findRecord == 0){
+                        if($employee->insert($userdata)){
+                            $count++;
+                        }
+                    }
+                }
+                session()->setFlashdata('message', $count.' rows successfully added.');
+                session()->setFlashdata('alert-class', 'alert-success');
+            }
+            else{
+                session()->setFlashdata('message', 'CSV file coud not be imported.');
+                session()->setFlashdata('alert-class', 'alert-danger');
+            }
+            }else{
+            session()->setFlashdata('message', 'CSV file coud not be imported.');
+            session()->setFlashdata('alert-class', 'alert-danger');
+            }
+        }
+        return redirect()->route('/');         
+    }
+
+    public function uploadEmployee()
+    {
+        if ($this->request->getMethod() == "post") {
+
+            $file = $this->request->getFile("file");
+            $file_name = $file->getTempName();
+            $employee = array();
+            $csv_data = array_map('str_getcsv', file($file_name));
+
+            if (count($csv_data) > 0) {
+
+                $index = 0;
+
+                foreach ($csv_data as $data) {
+                    if ($index > 0) {
+                        $employee[] = array(
+                            "nama_karyawan" => $data[1],
+                            "usia" => $data[2],
+                            "status_vaksin_1" => $data[3],
+                            "status_vaksin_2" => $data[4],
+                        );
+                    }
+                    $index++;
+                }
+
+                $builder = $this->db->table('employees');
+                $builder->insertBatch($employee);
+                $session = session();
+                $session->setFlashdata("success", "Data saved successfully");
+                return redirect()->to(base_url('/'));
+            }
+        }
+    return redirect()->route('/');    }
 }
