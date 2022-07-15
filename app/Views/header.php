@@ -32,27 +32,28 @@
     a.buttons-collection {
         margin-left: 1em;
     }
-
-    thead input {
-        width: 100%;
+ 
+    th input {
+        width: 80%;
     }
 
-    ::placeholder {
-      /* Chrome, Firefox, Opera, Safari 10.1+ */
+    /*::placeholder {
+      Chrome, Firefox, Opera, Safari 10.1+ 
       color: red;
       opacity: 1;
-      /* Firefox */
-    }
+       Firefox 
+    }*/
 
-    :-ms-input-placeholder {
-      /* Internet Explorer 10-11 */
+    /*:-ms-input-placeholder {
+       Internet Explorer 10-11 
       color: red;
-    }
+    } 
 
     ::-ms-input-placeholder {
-      /* Microsoft Edge */
+      /* Microsoft Edge 
       color: red;
-    }
+    } */
+    
     .buttons-html5{
       float: left;
       margin-left: 20px;

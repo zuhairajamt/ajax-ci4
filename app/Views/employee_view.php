@@ -23,6 +23,7 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
+
                     <tfoot>
                         <tr>
                             <th>No.</th>

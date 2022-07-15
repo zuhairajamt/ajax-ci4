@@ -83,12 +83,19 @@
         }
       });
     });
+
     $('#tabel tfoot th').each(function(i) {
       var title = $('#tabel thead th').eq($(this).index()).text();
-      $(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '" />');
+      $(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '"  style = "margin-right= -90px;"/>');
     });
 
     var table = $('#tabel').DataTable({
+      orderCellsTop: true,
+      fixedHeader: true,
+      scrollY: "300px",
+      scrollX: true,
+      scrollCollapse: true,
+      fixedColumns: true,
       "processing": true,
       "serverSide": true,
       "ajax": "<?= route_to('get.all.employee'); ?>",
@@ -106,7 +113,11 @@
       ],
       "fnCreatedRow": function(row, data, index) {
         $('td', row).eq(0).html(index + 1);
-      }
+      },
+      "columnDefs": [{
+        "width": "10%",
+        "targets": 0
+      }]
     });
 
     // Filter event handler
