@@ -59,12 +59,20 @@
           $(form).find('span.error-text').text('');
         },
         success: function(data) {
-          
+
           if ($.isEmptyObject(data.error)) {
             if (data.code == 1) {
               $(form)[0].reset();
               $('#exampleModal').modal('hide');
+<<<<<<< HEAD
               swal.fire("Berhasil", data.msg, "success");
+=======
+              Swal.fire(
+                'Berhasil!',
+                'Data karyawan berhasil ditambahkan.',
+                'success'
+              )
+>>>>>>> 3a411ea1759dfce8094fcaa27955d6ff5099808c
               $('#tabel').DataTable().ajax.reload(null, false);
             } else {
               alert(data.msg);
@@ -73,7 +81,7 @@
             $.each(data.error, function(prefix, val) {
               $(form).find('span.' + prefix + '_error').text(val);
             });
-           
+
           }
         }
       });
@@ -241,7 +249,15 @@
             employee_id: employee_id
           }, function(data) {
             if (data.code == 1) {
+<<<<<<< HEAD
               swal.fire("Berhasil", data.msg, "success");
+=======
+              Swal.fire(
+                'Deleted!',
+                'Data karyawan berhasil dihapus.',
+                'success'
+              )
+>>>>>>> 3a411ea1759dfce8094fcaa27955d6ff5099808c
               $('#tabel').DataTable().ajax.reload(null, false);
             } else {
               alert(data.msg);
