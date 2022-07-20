@@ -31,13 +31,12 @@
 <!-- TABLER ASSET -->
 <!-- Libs JS -->
 <!-- Tabler Core -->
-<script src="<?= base_url('') . '/Assets' ?>/js/tabler.min.js"></script>
-<script src="<?= base_url('') . '/Assets' ?>/js/demo.min.js"></script>
+<script src="Assets/js/tabler.min.js"></script>
+<script src="Assets/js/demo.min.js"></script>
 <!-- ----- -->
 
 <!-- Specific Page Vendor -->
-<script src="<?= base_url('') ?>/assets/vendor/pnotify/pnotify.custom.js"></script>
-<!-- <script src="/publc/sweetalert2/sweetalert2.min.js"></script> -->
+<!-- <script src="Assets/vendor/pnotify/pnotify.custom.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.js"></script>
 
 

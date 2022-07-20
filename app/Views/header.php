@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
 
   <!-- CSS files -->
-  <link href="<?= base_url('') . '/Assets' ?>/css/tabler.min.css" rel="stylesheet" />
-  <link href="<?= base_url('') . '/Assets' ?>/css/tabler-flags.min.css" rel="stylesheet" />
-  <link href="<?= base_url('') . '/Assets' ?>/css/tabler-payments.min.css" rel="stylesheet" />
-  <link href="<?= base_url('') . '/Assets' ?>/css/tabler-vendors.min.css" rel="stylesheet" />
-  <link href="<?= base_url('') . '/Assets' ?>/css/demo.min.css" rel="stylesheet" />
+  <link href="Assets/css/tabler.min.css" rel="stylesheet" />
+  <link href="Assets/css/tabler-flags.min.css" rel="stylesheet" />
+  <link href="Assets/css/tabler-payments.min.css" rel="stylesheet" />
+  <link href="Assets/css/tabler-vendors.min.css" rel="stylesheet" />
+  <link href="Assets/css/demo.min.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
