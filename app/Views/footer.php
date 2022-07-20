@@ -100,7 +100,8 @@
       "ajax": "<?= route_to('get.all.employee'); ?>",
       "dom": "lBfrtip",
       buttons: [
-        'csv'
+        'csv',
+        'excel',
       ],
       stateSave: true,
       info: true,

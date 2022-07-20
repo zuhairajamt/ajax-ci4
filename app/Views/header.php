@@ -82,6 +82,9 @@
       border: #467fd0 1px solid;
       border-radius: 5px;
     }
+    .buttons-html5:nth-child(2){
+      margin-left: 5px;
+    }
   </style>
 
 </head>
