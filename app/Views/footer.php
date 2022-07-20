@@ -84,18 +84,18 @@
       });
     });
 
-    $('#tabel thead th').each(function(i) {
-      var title = $('#tabel thead th').eq($(this).index()).text();
+    $('#tabel thead:nth-child(2) th').each(function(i) {
+      var title = $('#tabel thead:nth-child(2) th').eq($(this).index()).text();
       $(this).html('<input type="text" class="form-control input-sm" placeholder="' + title + '" data-index="' + i + '" />');
     });
 
     var table = $('#tabel').DataTable({
-      orderCellsTop: true,
-      fixedHeader: false,
+      // orderCellsTop: true,
+      // fixedHeader: false,
       scrollY: "600px",
-      scrollX: true,
+      // scrollX: true,
       scrollCollapse: true,
-      fixedColumns: true,
+      // fixedColumns: true,
       "processing": true,
       "serverSide": true,
       "ajax": "<?= route_to('get.all.employee'); ?>",
@@ -121,7 +121,7 @@
     });
 
     // Filter event handler
-    $(table.table().container()).on('keyup', 'thead input', function() {
+    $(table.table().container()).on('keyup', 'thead:nth-child(2) input', function() {
       table
         .column($(this).data('index'))
         .search(this.value)
