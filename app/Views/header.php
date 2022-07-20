@@ -29,22 +29,31 @@
   <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
 
   <style>
+    .markdown>table> :not(caption)>*>*,
+    .table> :not(caption)>*>* {
+      border: none;
+    }
+
     a.buttons-collection {
-        margin-left: 1em;
+      margin-left: 1em;
     }
 
-    th:nth-child(2), td { white-space: nowrap; }
+    th,
+    td {
+      white-space: nowrap;
+    }
+
     div.dataTables_wrapper {
-        width: 100%;
-        margin: 0 auto;
-    }
- 
-    th:nth-child(2) input {
-        width: 90%;
+      width: 100%;
+      margin: 0 auto;
     }
 
-    thead:nth-child(2) tr th:last-child{
-      pointer-events: none; 
+    th input {
+      width: 90%;
+    }
+
+    thead:nth-child(2) tr th:last-child {
+      pointer-events: none;
     }
 
     /*::placeholder {
@@ -63,8 +72,8 @@
       /* Microsoft Edge 
       color: red;
     } */
-    
-    .buttons-html5{
+
+    .buttons-html5 {
       float: left;
       margin-left: 20px;
       padding: 2px 15px;
@@ -73,8 +82,6 @@
       border: #467fd0 1px solid;
       border-radius: 5px;
     }
-
-    
   </style>
 
 </head>
