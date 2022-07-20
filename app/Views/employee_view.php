@@ -15,12 +15,12 @@
                 <table id="tabel" class="table card-table table-vcenter text-nowrap datatable stripe hover">
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Nama Karyawan</th>
-                            <th>Usia</th>
-                            <th>Status Vaksin 1</th>
-                            <th>Status Vaksin 2</th>
-                            <th>Aksi</th>
+                            <th class="text-center">No.</th>
+                            <th class="text-center">Nama Karyawan</th>
+                            <th class="text-center">Usia</th>
+                            <th class="text-center">Status Vaksin 1</th>
+                            <th class="text-center">Status Vaksin 2</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <thead>
