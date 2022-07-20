@@ -22,6 +22,18 @@
 
     <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+      .field-icon {
+        float: right;
+        height: 15px;
+        width: 15px;
+        margin-top: 1px;
+        position: relative;
+        z-index: 2;
+      }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
   </head>
   <body  class=" border-top-wide border-primary d-flex flex-column">
     <div class="page page-center">
@@ -35,18 +47,16 @@
           <div class="card-body">
             <h2 class="card-title text-center mb-4">Login</h2>
             <div class="mb-3">
-              <label for="InputForEmail" class="form-label">Email address</label>
+              <label for="InputForEmail" class="form-label">Email</label>
               <input type="email" name="email" class="form-control" id="InputForEmail" value="<?= set_value('email') ?> " placeholder="Masukkan Email">
             </div>
             <div class="mb-2">
             <label for="InputForPassword" class="form-label">Password</label>
                         
               <div class="input-group input-group-flat">
-              <input type="password" name="password" class="form-control" id="InputForPassword" placeholder="Password">
+              <input id="password-field" type="password" name="password" class="form-control" id="InputForPassword" placeholder="Password">
                 <span class="input-group-text">
-                  <a href="#" class="link-secondary" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
-                  </a>
+                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle toggle-password"></span>
                 </span>
               </div>
             </div>
@@ -58,11 +68,24 @@
           
         </form>
         <div class="text-center text-muted mt-3">
-          Belum punya akun? <a href="http://localhost:8080/register" tabindex="-1">Daftar</a>
+          Belum punya akun? <a href="/register" tabindex="-1">Daftar</a>
         </div>
       </div>
     </div>
     <!-- Libs JS -->
+    <!-- Toggle Pass -->
+    <script>
+        $(".toggle-password").click(function() {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+            input.attr("type", "text");
+            } else {
+            input.attr("type", "password");
+            }
+        });
+    </script>
     <!-- Tabler Core -->
     <script src="/Assets/js/tabler.min.js"></script>
     <script src="/Assets/js/demo.min.js"></script>

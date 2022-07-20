@@ -77,9 +77,9 @@ class Employee extends Controller
             ];
             $query = $employeeModel->insert($data);
             if ($query) {
-                echo json_encode(['code' => 1, 'msg' => 'New employee has been saved to database']);
+                echo json_encode(['code' => 1, 'msg' => 'Data berhasil ditambah']);
             } else {
-                echo json_encode(['code' => 0, 'msg' => 'Something went wrong']);
+                echo json_encode(['code' => 0, 'msg' => 'Data gagal ditambah']);
             }
         }
     }
@@ -135,6 +135,37 @@ class Employee extends Controller
         );
     }
 
+    public function importEmployee()
+    {
+        if ($this->request->getMethod() == "post") {
+            $file = $this->request->getFile("csv_file");
+            $file_name = $file->getTempName();
+            $employee = array();
+            $csv_data = array_map('str_getcsv', file($file_name));
+            if (count($csv_data) > 0) {
+                $index = 0;
+                foreach ($csv_data as $data) {
+                    if ($index > 0) {
+                        $employee[] = array(
+                            "nama_karyawan" => $data[1],
+                            "usia" => $data[2],
+                            "status_vaksin_1" => $data[3],
+                            "status_vaksin_2" => $data[4],
+                        );
+                    }
+                    $index++;
+                }
+                $builder = $this->db->table('employees');
+                $builder->insertBatch($employee);
+                $session = session();
+                $session->setFlashdata("success", "Data saved successfully");
+
+                return redirect()->to(base_url('employee'));
+            }
+        }
+        return view("employee_view");
+    }
+
     public function getEmployeeInfo()
     {
         $employeeModel = new \App\Models\Employee_model();
@@ -154,9 +185,9 @@ class Employee extends Controller
         $query = $employeeModel->delete($employee_id);
 
         if ($query) {
-            echo json_encode(['code' => 1, 'msg' => 'Employee deleted Successfully']);
+            echo json_encode(['code' => 1, 'msg' => 'Data berhasil dihapus']);
         } else {
-            echo json_encode(['code' => 0, 'msg' => 'Something went wrong']);
+            echo json_encode(['code' => 0, 'msg' => 'Data gagal dihapus']);
         }
     }
 

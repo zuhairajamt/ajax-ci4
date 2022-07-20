@@ -16,6 +16,7 @@
   <title>ICONPLUS</title>
   <!-- DATATABLES AND SWEETALERT2 STYLE-->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
 
   <!-- CSS files -->
@@ -29,6 +30,14 @@
   <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
 
   <style>
+    .button.btn-space {
+      margin-left: 1em;
+    }
+
+    thead input {
+        width: 100%;
+    }
+
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: red;
@@ -82,7 +91,7 @@
               <span class="avatar avatar-sm" style="background-image: url(<?= base_url('') . '/Assets' ?>/static/avatars/000m.jpg)"></span>
               <div class="d-none d-xl-block ps-2">
                 <div><?= $user_name; ?></div>
-                <div class="mt-1 small text-muted">User</div>
+                <div class="mt-1 small text-muted">Admin</div>
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -91,7 +100,7 @@
               <!-- <a href="#" class="dropdown-item">Feedback</a> -->
               <!-- <div class="dropdown-divider"></div> -->
               <!-- <a href="#" class="dropdown-item">Settings</a> -->
-              <a href="http://localhost:8080/login/logout" class="dropdown-item">Logout</a>
+              <a href="/login/logout" class="dropdown-item">Logout</a>
             </div>
           </div>
         </div>

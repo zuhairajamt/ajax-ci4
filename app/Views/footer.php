@@ -64,6 +64,7 @@
             if (data.code == 1) {
               $(form)[0].reset();
               $('#exampleModal').modal('hide');
+              swal.fire("Berhasil", data.msg, "success");
               $('#tabel').DataTable().ajax.reload(null, false);
             } else {
               alert(data.msg);
@@ -78,12 +79,27 @@
       });
     });
 
+    $('#tabel tfoot th').each(function(i) {
+      var title = $('#tabel thead th').eq($(this).index()).text();
+      $(this).html('<input type="text" placeholder="' + title + '" data-index="' + i + '" style = "margin-right= -90px;" />');
+    });
 
-    $('#tabel').DataTable({
+    var table = $('#tabel').DataTable({
+      orderCellsTop: true,
+      fixedHeader: true,
+      scrollY: "300px",
+      scrollX: true,
+      scrollCollapse: true,
+      fixedColumns: true,
       "processing": true,
       "serverSide": true,
       "ajax": "<?= route_to('get.all.employee'); ?>",
       "dom": "lBfrtip",
+      buttons: [
+        'excel', 
+        'csv',
+        'copy'
+      ],
       stateSave: true,
       info: true,
       "iDisplayLength": 5,
@@ -95,6 +111,60 @@
       "fnCreatedRow": function(row, data, index) {
         $('td', row).eq(0).html(index + 1);
       }
+      // "initComplete" : function(){
+			// 		var notApplyFilterOnColumn = [5];
+			// 		var inputFilterOnColumn = [0];
+			// 		var showFilterBox = 'afterHeading'; //beforeHeading, afterHeading
+			// 		$('.gtp-dt-filter-row').remove();
+			// 		var theadSecondRow = '<tr class="gtp-dt-filter-row">';
+			// 		$(this).find('thead tr th').each(function(index){
+			// 			theadSecondRow += '<td class="gtp-dt-select-filter-' + index + '"></td>';
+			// 		});
+			// 		theadSecondRow += '</tr>';
+
+			// 		if(showFilterBox === 'beforeHeading'){
+			// 			$(this).find('thead').prepend(theadSecondRow);
+			// 		}else if(showFilterBox === 'afterHeading'){
+			// 			$(theadSecondRow).insertAfter($(this).find('thead tr'));
+			// 		}
+
+			// 		this.api().columns().every( function (index) {
+			// 			var column = this;
+
+			// 			if(inputFilterOnColumn.indexOf(index) >= 0 && notApplyFilterOnColumn.indexOf(index) < 1){
+			// 				$('td.gtp-dt-select-filter-' + index).html('<input type="text" class="gtp-dt-input-filter">');
+			//                 $( 'td input.gtp-dt-input-filter').on( 'keyup change clear', function () {
+			//                     if ( column.search() !== this.value ) {
+			//                         column
+			//                             .search( this.value )
+			//                             .draw();
+			//                     }
+			//                 } );
+			// 			}else if(notApplyFilterOnColumn.indexOf(index) < 0){
+			// 				var select = $('<select><option value="">Select</option></select>')
+			//                     .on( 'change', function () {
+			//                         var val = $.fn.dataTable.util.escapeRegex(
+			//                             $(this).val()
+			//                         );
+			 
+			//                         column
+			//                             .search( val ? '^'+val+'$' : '', true, false )
+			//                             .draw();
+			//                     } );
+			//                 $('td.gtp-dt-select-filter-' + index).html(select);
+			//                 column.data().unique().sort().each( function ( d, j ) {
+			//                     select.append( '<option value="'+d+'">'+d+'</option>' )
+			//                 } );
+			// 			}
+			// 		});
+      //   }
+    });
+
+    $(table.table().container()).on('keyup', 'tfoot input', function() {
+      table
+        .column($(this).data('index'))
+        .search(this.value)
+        .draw();
     });
 
     $(document).on('click', '.btn-edit', function(e) {
@@ -157,15 +227,12 @@
       swal.fire({
 
         title: 'Are you sure?',
-        html: 'You want to delete this employee',
-        showCloseButton: true,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
         showCancelButton: true,
-        cancelButtonText: 'Cancel',
-        confirmButtonText: 'Yes, delete',
+        confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonColor: '#556eeb',
-        width: 300,
-        allowOutsideClick: false
+        confirmButtonText: 'Yes, delete it!'
 
       }).then(function(result) {
         if (result.value) {
@@ -174,6 +241,7 @@
             employee_id: employee_id
           }, function(data) {
             if (data.code == 1) {
+              swal.fire("Berhasil", data.msg, "success");
               $('#tabel').DataTable().ajax.reload(null, false);
             } else {
               alert(data.msg);
