@@ -12,7 +12,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table id="tabel" class="table card-table table-vcenter text-nowrap datatable">
+                <table id="tabel" class="table card-table table-vcenter text-nowrap datatable stripe hover">
                     <thead>
                         <tr>
                             <th>No.</th>

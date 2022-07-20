@@ -43,7 +43,7 @@
         width: 90%;
     }
 
-    tfoot tr th:last-child{
+    thead tr th:last-child{
       pointer-events: none; 
     }
 
