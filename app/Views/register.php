@@ -1,4 +1,3 @@
-
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -20,6 +19,19 @@
     <link href="/Assets/css/tabler-payments.min.css" rel="stylesheet"/>
     <link href="/Assets/css/tabler-vendors.min.css" rel="stylesheet"/>
     <link href="/Assets/css/demo.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <style>
+      .field-icon {
+        float: right;
+        height: 15px;
+        width: 15px;
+        margin-top: 1px;
+        position: relative;
+        z-index: 2;
+      }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
   </head>
   <body  class=" border-top-wide border-primary d-flex flex-column">
     <div class="page page-center">
@@ -46,32 +58,28 @@
             <div class="mb-3">
               <label for="InputForPassword" class="form-label">Password</label>
               <div class="input-group input-group-flat">
-                <input type="password" name="password" class="form-control"  placeholder="Password"  autocomplete="off">
+                <input id="password-field" type="password" name="password" class="form-control"  placeholder="Password"  autocomplete="off">
                 <span class="input-group-text">
-                  <a href="#" class="link-secondary toggle-password" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
-                  </a>
-                </span>
+                  <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle toggle-password"></span>
+                </span>              
               </div>
               <div class="mb-3">
               <label for="InputForConfPassword" class="form-label">Konfirmasi Password</label>
               <div class="input-group input-group-flat">
-                <input  type="password" name="confpassword" class="form-control" id="InputForConfPassword" placeholder="Konfirmasi Password"  autocomplete="off">
+                <input type="password" name="confpassword" class="form-control" id="InputForConfPassword" placeholder="Konfirmasi Password"  autocomplete="off">
                 <span class="input-group-text">
-                  <a href="#" class="link-secondary toggle-password" title="Show password" data-bs-toggle="tooltip"><!-- Download SVG icon from http://tabler-icons.io/i/eye -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" /></svg>
-                  </a>
+                  <span toggle="#InputForConfPassword" class="fa fa-fw fa-eye field-icon toggle toggle-password"></span>
                 </span>
               </div>
             </div>
       
             <div class="form-footer">
-              <button type="submit" class="btn btn-primary w-100">Create new account</button>
+              <button type="submit" class="btn btn-primary w-100">Buat Akun</button>
             </div>
           </div>
         </form>
         <div class="text-center text-muted mt-3">
-          Already have account? <a href="http://localhost:8080/login" tabindex="-1">Sign in</a>
+          Belum Punya Akun? <a href="/login" tabindex="-1">Login</a>
         </div>
       </div>
     </div>
