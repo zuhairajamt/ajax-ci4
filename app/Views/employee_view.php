@@ -23,8 +23,7 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-
-                    <tfoot>
+                    <thead>
                         <tr>
                             <th>No.</th>
                             <th>Nama Karyawan</th>
@@ -33,7 +32,18 @@
                             <th>Status Vaksin 2</th>
                             <th>Aksi</th>
                         </tr>
-                    </tfoot>
+                    </thead>
+
+                    <!-- <tfoot>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama Karyawan</th>
+                            <th>Usia</th>
+                            <th>Status Vaksin 1</th>
+                            <th>Status Vaksin 2</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot> -->
                 </table>
             </div>
         </div>

@@ -33,17 +33,17 @@
         margin-left: 1em;
     }
 
-    th, td { white-space: nowrap; }
+    th:nth-child(2), td { white-space: nowrap; }
     div.dataTables_wrapper {
         width: 100%;
         margin: 0 auto;
     }
  
-    th input {
+    th:nth-child(2) input {
         width: 90%;
     }
 
-    thead tr th:last-child{
+    thead:nth-child(2) tr th:last-child{
       pointer-events: none; 
     }
 
