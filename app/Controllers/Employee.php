@@ -5,8 +5,6 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\Employee_model;
 
-use \Hermawan\DataTables\DataTable;
-
 class Employee extends Controller
 {
 
