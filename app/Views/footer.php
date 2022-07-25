@@ -216,6 +216,36 @@
       });
     });
 
+
+    $(document).on('click', '.btn-ubah', function(e) {
+      e.preventDefault();
+      // var id = $(this).attr('data-id');
+      var data = {
+        'edit_user': $('#edit_prof').val(),
+        'user_name': $('#name').val(),
+        'user_password': $('#password1').val(),
+        'user_password': $('#password2').val(),
+      };
+      $.ajax({
+        method: "post",
+        url: "profile/update",
+        data: data,
+        success: function(response) {
+          if (response.status == "Data berhasil diupdate") {
+            // $('#editModal').modal('hide');
+            // $('#tableData').html("");
+            // display();
+            $('#tabel').DataTable().ajax.reload(null, false);
+
+            swal.fire("Berhasil", "profil berhasil diubah", "success");
+          } else {
+            swal.fire("Gagal", "profil gagal diubah", "error");
+          }
+        }
+      });
+      e.preventDefault();
+    });
+
   });
 </script>
 

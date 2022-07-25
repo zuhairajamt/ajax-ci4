@@ -29,6 +29,27 @@
   <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
 
   <style>
+    .dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+      color: white ! important;
+      background-color: #467fd0;
+      border-radius: 5px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+      color: #467fd0 ! important;
+      background-color: white;
+      border: #467fd0 1p radius;
+      border-radius: 5px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+     color: #467fd0 ! important;
+      background-color: white;
+      border: #467fd0 1p radius;
+      border-radius: 5px;
+    }
+
+
     .markdown>table> :not(caption)>*>*,
     .table> :not(caption)>*>* {
       border: none;
@@ -92,7 +113,7 @@
 
 <body class="layout-fluid">
   <div class="wrapper">
-    <header class="navbar navbar-expand-md navbar-light d-print-none">
+  <header class="navbar navbar-expand-md navbar-light d-print-none">
       <div class="container-xl">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
           <span class="navbar-toggler-icon"></span>
@@ -120,7 +141,7 @@
           </a>
           <div class="nav-item dropdown">
             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-              <span class="avatar avatar-sm" style="background-image: url(<?= base_url('') . '/Assets' ?>/static/avatars/000m.jpg)"></span>
+              <span class="avatar avatar-sm" style="background-image: url(Assets/static/avatars/000m.jpg)"></span>
               <div class="d-none d-xl-block ps-2">
                 <div><?= $user_name; ?></div>
                 <div class="mt-1 small text-muted">User</div>
@@ -128,11 +149,11 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
               <!-- <a href="#" class="dropdown-item">Set status</a> -->
-              <!-- <a href="#" class="dropdown-item">Profile & account</a> -->
+              <a href="/profile" class="dropdown-item">Profile</a> 
               <!-- <a href="#" class="dropdown-item">Feedback</a> -->
               <!-- <div class="dropdown-divider"></div> -->
               <!-- <a href="#" class="dropdown-item">Settings</a> -->
-              <a href="http://localhost:8080/login/logout" class="dropdown-item">Logout</a>
+              <a href="/login/logout" class="dropdown-item">Logout</a>
             </div>
           </div>
         </div>

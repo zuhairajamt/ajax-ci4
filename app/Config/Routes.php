@@ -42,6 +42,9 @@ $routes->set404Override();
 // $routes->post('/employee/add', 'Employee::add');
 $routes->get('/', 'Employee::index',['filter' => 'auth']);
  $routes->get('/employee', 'Employee::index',['filter' => 'auth']);
+ $routes->get('/profile', 'Profile::index',['filter' => 'auth']);
+ $routes->post('update','Profile::update');
+
  $routes->get('ajax-datatable', 'Employee::ajaxDataTables');
  $routes->post('addEmployee','Employee::addEmployee',['as'=>'add.employee']);
  $routes->post('getEmployeeInfo','Employee::getEmployeeInfo',['as'=>'get.country.employee']);
