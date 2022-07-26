@@ -2,12 +2,11 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
 use App\Models\Employee_model;
+use CodeIgniter\Controller;
 
 class Employee extends Controller
 {
-
     public function __construct()
     {
         require_once APPPATH . 'ThirdParty/ssp.php';
@@ -20,17 +19,19 @@ class Employee extends Controller
         $uname['user_name'] = $session->get('user_name');
 
         $model = new Employee_model;
-        $data['title']     = 'Data Vaksin Karyawan';
-        //$data['getKaryawan'] = $model->getKaryawan();
+        //$data['title']     = 'Data Vaksin Karyawan';
+        // $data['getKaryawan'] = $model->getKaryawan();
 
         echo view('header', $uname);
-        echo view('employee_view', $data);
-        echo view('footer', $data);
+        echo view('employee_view');
+        echo view('footer');
     }
 
     public function addEmployee()
     {
         $employeeModel = new \App\Models\Employee_model();
+        $db      = \Config\Database::connect();
+        $builder = $db->table('employees');
 
         $validation = \Config\Services::validation();
         $this->validate([
@@ -38,50 +39,59 @@ class Employee extends Controller
                 'rules' => 'required|max_length[50]',
                 'errors' => [
                     'required' => 'Nama Karyawan is required',
-                    'max_length' => 'Your name is too long'
-                ]
+                    'max_length' => 'Your name is too long',
+                ],
             ],
             'usia' => [
                 'rules' => 'required|integer|greater_than_equal_to[10]|less_than_equal_to[100]',
                 'errors' => [
                     'required' => 'Usia is required',
-                ]
+                ],
             ],
             'status_vaksin_1' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Status Vaksin 1 is required'
-                ]
+                    'required' => 'Status Vaksin 1 is required',
+                ],
             ],
             'status_vaksin_2' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Status Vaksin 2 is required'
-                ]
-            ]
+                    'required' => 'Status Vaksin 2 is required',
+                ],
+            ],
         ]);
 
-        if ($validation->run() == FALSE) {
+        if ($validation->run() == false) {
             $errors = $validation->getErrors();
             echo json_encode(['code' => 0, 'error' => $errors]);
         } else {
-
             $session = session();
-            $user_id['user_id'] = $session->get('user_id');
+            //$user_id['user_id'] = $session->get('user_id');
+            $user_id = $_SESSION['user_id'];
             //$user_id = $_SESSION['user_id'];
             //$autoload['libraries'] = array('session');
 
             //Insert data into db
+
+            $array = [
+                'user_id'   => $user_id,
+            ];
+            
+
             $data = [
                 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-                'usia'         => $this->request->getPost('usia'),
-                'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
-                'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
-                'user_id' => $this->input->post($user_id)
+                'usia' => $this->request->getPost('usia'),
+                'status_vaksin_1' => $this->request->getPost('status_vaksin_1'),
+                'status_vaksin_2' => $this->request->getPost('status_vaksin_2'),
+                //'user_id' => $user_id
             ];
-            $query = $employeeModel->insert($data);
+            $builder->set($array);
+            $builder->set($data);
+            //$query = $employeeModel->insert($data);
+            $query = $builder->insert();
             if ($query) {
-                echo json_encode(['code' => 1, 'msg' => 'Data karyawan behasil ditambahkan']);
+                echo json_encode(['code' => 1, 'msg' => $user_id]);
             } else {
                 echo json_encode(['code' => 0, 'msg' => 'Data karyawan gagal ditambahkan']);
             }
@@ -98,8 +108,11 @@ class Employee extends Controller
             "db" => $this->db->database,
         );
 
-        $table = "employees";
+        $table = 'employees';
+
         $primaryKey = "id";
+
+        //$query = 'SELECT * FROM employee WHERE user_id = 1';
 
         $columns = array(
             array(
@@ -130,13 +143,19 @@ class Employee extends Controller
                                   <a class='btn btn-success btn-edit' data-id='" . $row['id'] . "' data-bs-toggle='modal' data-bs-target='#editModal' id='updateEmployeeBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></a>
                                   <button class='btn btn btn-danger' data-id='" . $row['id'] . "' id='deleteEmployeeBtn'> <i class='ti ti-trash'></i></button>
                              </div>";
-                }
+                },
             ),
         );
 
+        $session = session();
+        //$user_id['user_id'] = $session->get('user_id');
+        $user_id = $_SESSION['user_id'];
+
         echo json_encode(
-            \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns)
+            \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns, null, "user_id='$user_id'")
         );
+
+        //https://www.gyrocode.com/articles/jquery-datatables-using-where-join-and-group-by-with-ssp-class-php/
     }
 
     public function getEmployeeInfo()
@@ -181,39 +200,39 @@ class Employee extends Controller
             'nama_karyawan' => [
                 'rules' => 'required|max_length[50]',
                 'errors' => [
-                    'required' => 'Nama Karyawan is required'
-                ]
+                    'required' => 'Nama Karyawan is required',
+                ],
             ],
             'usia' => [
                 'rules' => 'required|integer|greater_than_equal_to[10]|less_than_equal_to[100]',
                 'errors' => [
-                    'required' => 'Usia is required'
-                ]
+                    'required' => 'Usia is required',
+                ],
             ],
             'status_vaksin_1' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Status Vaksin 1 is required'
-                ]
+                    'required' => 'Status Vaksin 1 is required',
+                ],
             ],
             'status_vaksin_2' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Status Vaksin 2 is required'
-                ]
-            ]
+                    'required' => 'Status Vaksin 2 is required',
+                ],
+            ],
         ]);
 
-        if ($validation->run() == FALSE) {
+        if ($validation->run() == false) {
             $errors = $validation->getErrors();
             echo json_encode(['code' => 0, 'error' => $errors]);
         } else {
             $id = $this->request->getPost("edit_id");
             $data = [
                 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-                'usia'         => $this->request->getPost('usia'),
-                'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
-                'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
+                'usia' => $this->request->getPost('usia'),
+                'status_vaksin_1' => $this->request->getPost('status_vaksin_1'),
+                'status_vaksin_2' => $this->request->getPost('status_vaksin_2'),
             ];
             $update = $model->update($id, $data);
 
@@ -227,12 +246,11 @@ class Employee extends Controller
         }
     }
 
-
     //----------------------- Import csv -----------------------//
     public function importCsvToDb()
     {
         $input = $this->validate([
-            'file' => 'uploaded[file]|max_size[file,8024]|ext_in[file,csv],'
+            'file' => 'uploaded[file]|max_size[file,8024]|ext_in[file,csv],',
         ]);
         if (!$input) {
             $data['validation'] = $this->validator;
@@ -247,7 +265,7 @@ class Employee extends Controller
                     $numberOfFields = 6;
                     $csvArr = array();
 
-                    while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
+                    while (($filedata = fgetcsv($file, 1000, ",")) !== false) {
                         $num = count($filedata);
                         if ($i > 0 && $num == $numberOfFields) {
 
@@ -302,14 +320,12 @@ class Employee extends Controller
     public function uploadEmployee()
     {
         if ($this->request->getMethod() == "post") {
-
             $file = $this->request->getFile("file");
             $file_name = $file->getTempName();
             $employee = array();
             $csv_data = array_map('str_getcsv', file($file_name));
 
             if (count($csv_data) > 0) {
-
                 $index = 0;
 
                 foreach ($csv_data as $data) {

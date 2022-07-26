@@ -10,14 +10,14 @@ class Employee_model extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = ['nama_karyawan', 'usia', 'status_vaksin_1', 'status_vaksin_2'];
  
-    public function getKaryawan($id = false, $user_id = true)
-    {
-        if ($id === false) {
-            return $this->getWhere(['user_id' => $user_id]);
-        } else {
-            return $this->getWhere(['id' => $id]);
-        }
-    }
+    // public function getKaryawan($id = false, $user_id = true)
+    // {
+    //     if ($id === false) {
+    //         return $this->getWhere(['user_id' => $user_id]);
+    //     } else {
+    //         return $this->getWhere(['id' => $id]);
+    //     }
+    // }
  
     // public function saveKaryawan($data)
     // {
