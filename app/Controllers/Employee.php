@@ -151,10 +151,15 @@ class Employee extends Controller
         //$user_id['user_id'] = $session->get('user_id');
         $user_id = $_SESSION['user_id'];
 
-        echo json_encode(
-            \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns, null, "user_id='$user_id'")
-        );
-
+        if($user_id == 1) {
+            echo json_encode(
+                \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns)
+            );
+        } else {
+            echo json_encode(
+                \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns, null, "user_id='$user_id'")
+            );
+        }
         //https://www.gyrocode.com/articles/jquery-datatables-using-where-join-and-group-by-with-ssp-class-php/
     }
 
