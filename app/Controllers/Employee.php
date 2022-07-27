@@ -289,6 +289,7 @@ class Employee extends Controller
                             $csvArr[$i]['status_vaksin_1'] = $filedata[3];
                             $csvArr[$i]['status_vaksin_2'] = $filedata[4];
                             $csvArr[$i]['aksi'] = $filedata[5];
+                            $csvArr[$i]['user_id'] = $filedata[6];
                         }
                         $i++;
                     }
@@ -335,6 +336,7 @@ class Employee extends Controller
                             "usia" => $data[2],
                             "status_vaksin_1" => $data[3],
                             "status_vaksin_2" => $data[4],
+                            "user_id" => $data[6],
                         );
                     }
                     $index++;
