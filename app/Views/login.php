@@ -89,5 +89,50 @@
     <!-- Tabler Core -->
     <script src="/Assets/js/tabler.min.js"></script>
     <script src="/Assets/js/demo.min.js"></script>
+    <!-- Toastr Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+      $(document).ready(function() {
+          toastr.options = {
+              'closeButton': false,
+              'debug': false,
+              'newestOnTop': false,
+              'progressBar': false,
+              'positionClass': 'toast-top-right',
+              'preventDuplicates': true,
+              'showDuration': '1000',
+              'hideDuration': '1000',
+              'timeOut': '3000',
+              'extendedTimeOut': '1000',
+              'showEasing': 'swing',
+              'hideEasing': 'linear',
+              'showMethod': 'fadeIn',
+              'hideMethod': 'fadeOut',
+          }
+
+          $(document).on('click', '#login', function(e) {
+            e.preventDefault();
+            // var data = {
+            //   'email': $('#InputForEmail').val(),
+            //   'password': $('#InputForPassword').val(),
+            // };
+            $.ajax({
+              method: "post",
+              url: "login/auth",
+              data: $('#form').serialize(),
+              success: function(response) {
+                if (response.status == "Berhasil") {
+                  window.location.href = "/employee";
+                } else if (response.status == "Password Salah") {
+                  toastr.error(response.status);
+                } else {
+                  toastr.error(response.status);
+                }
+              }
+            });
+            e.preventDefault();
+          });
+      });
+    </script>
   </body>
 </html>
