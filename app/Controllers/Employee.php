@@ -325,6 +325,10 @@ class Employee extends Controller
 
     public function uploadEmployee()
     {
+        $session = session();
+        //$user_id['user_id'] = $session->get('user_id');
+        $user_id = $_SESSION['user_id'];
+
         if ($this->request->getMethod() == "post") {
             $file = $this->request->getFile("file");
             $file_name = $file->getTempName();
@@ -341,7 +345,7 @@ class Employee extends Controller
                             "usia" => $data[2],
                             "status_vaksin_1" => $data[3],
                             "status_vaksin_2" => $data[4],
-                            "user_id" => $data[6],
+                            "user_id" => $user_id,
                         );
                     }
                     $index++;
