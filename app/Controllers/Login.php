@@ -30,14 +30,20 @@ class Login extends Controller
                     'role'          => $data['role']
                 ];
                 $session->set($ses_data);
-                return redirect()->to('/employee');
+                // redirect()->to('/employee');
+                $output = ['status' => 'Berhasil'];
+                return $this->response->setJSON($output);
             }else{
-                $session->setFlashdata('msg', 'Wrong Password');
-                return redirect()->to('/login');
+                // $session->setFlashdata('msg', 'Wrong Password');
+                // redirect()->to('/login');
+                $output = ['status' => 'Password Salah'];
+                return $this->response->setJSON($output);
             }
         }else{
-            $session->setFlashdata('msg', 'Email not Found');
-            return redirect()->to('/login');
+            // $session->setFlashdata('msg', 'Email not Found');
+            // redirect()->to('/login');
+            $output = ['status' => 'Email Belum Terdaftar'];
+            return $this->response->setJSON($output);
         }
     }
  
