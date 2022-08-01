@@ -19,6 +19,8 @@
     <link href="/Assets/css/tabler-payments.min.css" rel="stylesheet"/>
     <link href="/Assets/css/tabler-vendors.min.css" rel="stylesheet"/>
     <link href="/Assets/css/demo.min.css" rel="stylesheet"/>
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
@@ -43,18 +45,18 @@
             <i class="ti ti-ghost"></i> B O O O ! !
           </a>
         </div>
-        <form class="card card-md" action="/login/auth" method="post" autocomplete="on">
+        <form id="form" class="card card-md" action="/login/auth" method="post" autocomplete="on">
           <div class="card-body">
             <h2 class="card-title text-center mb-4">Login</h2>
             <div class="mb-3">
               <label for="InputForEmail" class="form-label">Email</label>
-              <input type="email" name="email" class="form-control" id="InputForEmail" value="<?= set_value('email') ?> " placeholder="Masukkan Email">
+              <input type="email" name="email" class="form-control" id="InputForEmail" value="<?= set_value('email') ?> " placeholder="Masukkan Email" required>
             </div>
             <div class="mb-2">
             <label for="InputForPassword" class="form-label">Password</label>
                         
               <div class="input-group input-group-flat">
-              <input id="password-field" type="password" name="password" class="form-control" id="InputForPassword" placeholder="Password">
+              <input id="password-field" type="password" name="password" class="form-control" id="InputForPassword" placeholder="Password" required>
                 <span class="input-group-text">
                   <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle toggle-password"></span>
                 </span>
