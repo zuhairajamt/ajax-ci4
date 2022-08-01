@@ -29,24 +29,28 @@
   <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
 
   <style>
-    .dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    /* .dataTables_wrapper .dataTables_paginate .paginate_button, .dataTables_wrapper .dataTables_paginate .paginate_button.current{
       color: white ! important;
       background-color: #467fd0;
       border-radius: 5px;
-    }
+    } */
 
     .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current{
-      color: #467fd0 ! important;
-      background-color: white;
+      color: white ! important;
+      background-color: #467fd0;
       border: #467fd0 1p radius;
       border-radius: 5px;
     }
 
-    .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
-     color: #467fd0 ! important;
-      background-color: white;
-      border: #467fd0 1p radius;
-      border-radius: 5px;
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+      color: #467fd0 !important;
+      border: 1px solid white;
+      background: rgba(76, 175, 80, 0); 
+      background: -webkit-linear-gradient(white 0%, white 0%, white 0%);
+      background: -moz-linear-gradient(white 0%, white 0%, white 0%);
+      background: -ms-linear-gradient(white 0%, white 0%, white 0%%);
+      background: -o-linear-gradient(white 0%, white 0%, white 0%);
+      background: linear-gradient(to white 0%, white 0%, white 0%);
     }
 
 
@@ -144,7 +148,7 @@
               <span class="avatar avatar-sm" style="background-image: url(Assets/static/avatars/000m.jpg)"></span>
               <div class="d-none d-xl-block ps-2">
                 <div><?= $user_name; ?></div>
-                <div class="mt-1 small text-muted">User</div>
+                <div class="mt-1 small text-muted"><?= $role ?></div>
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

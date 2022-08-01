@@ -26,7 +26,8 @@ class Login extends Controller
                     'user_id'       => $data['user_id'],
                     'user_name'     => $data['user_name'],
                     'user_email'    => $data['user_email'],
-                    'logged_in'     => TRUE
+                    'logged_in'     => TRUE,
+                    'role'          => $data['role']
                 ];
                 $session->set($ses_data);
                 return redirect()->to('/employee');

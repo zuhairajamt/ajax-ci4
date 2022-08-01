@@ -16,13 +16,15 @@ class Employee extends Controller
     public function index()
     {
         $session = session();
+        
         $uname['user_name'] = $session->get('user_name');
+        $uname['role'] = $session->get('role');
 
         $model = new Employee_model;
         //$data['title']     = 'Data Vaksin Karyawan';
         // $data['getKaryawan'] = $model->getKaryawan();
 
-        echo view('header', $uname);
+        echo view('header', $uname, );
         echo view('employee_view');
         echo view('footer');
     }
@@ -150,14 +152,19 @@ class Employee extends Controller
         $session = session();
         //$user_id['user_id'] = $session->get('user_id');
         $user_id = $_SESSION['user_id'];
+        $user_role =$_SESSION['role'];
 
-        if($user_id == 1) {
+        // require( 'ssp.class.php');
+        
+        // $where = "deleted_at IS NULL";
+
+        if($user_role === 'Admin') {
             echo json_encode(
-                \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns)
+                \SSP::simple( $_GET, $dbDetails, $table, $primaryKey, $columns, null, "deleted_at IS NULL" )
             );
         } else {
             echo json_encode(
-                \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns, null, "user_id='$user_id'")
+                \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns, null, "user_id='$user_id' AND deleted_at IS NULL")
             );
         }
         //https://www.gyrocode.com/articles/jquery-datatables-using-where-join-and-group-by-with-ssp-class-php/
