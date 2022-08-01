@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="form-footer">
-              <button type="submit" class="btn btn-primary w-100">Masuk</button>
+              <button id="login" type="submit" class="btn btn-primary w-100">Masuk</button>
             </div>
           </div>
           <div class="hr-text">or</div>
