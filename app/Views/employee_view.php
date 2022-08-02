@@ -1,6 +1,6 @@
 <div class="container pt-5">
     <div class="text-right">
-        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</a>
+        <a href="#" class="btn btn-primary" id="tambah" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</a>
         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">Import Data</a>
 
     </div>
@@ -15,11 +15,15 @@
                 <table id="tabel" class="table card-table table-vcenter text-nowrap datatable stripe hover">
                     <thead>
                         <tr>
-                            <th class="text-center">No.</th>
+                        <th class="text-center">No.</th>
                             <th class="text-center">Nama Karyawan</th>
                             <th class="text-center">Usia</th>
                             <th class="text-center">Status Vaksin 1</th>
                             <th class="text-center">Status Vaksin 2</th>
+                            <th class="text-center">Desa</th>
+                            <th class="text-center">Kecamatan</th>
+                            <th class="text-center">Kota</th>
+                            <th class="text-center">Provinsi</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -30,6 +34,10 @@
                             <th>Usia</th>
                             <th>Status Vaksin 1</th>
                             <th>Status Vaksin 2</th>
+                            <th>Desa</th>
+                            <th>Kecamatan</th>
+                            <th>Kota</th>
+                            <th>Provinsi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -72,7 +80,7 @@
             ?>
             <div class="modal-body">
                 <div class="form-group">
-                    <input type="file" class="form-control" required id="file" placeholder="Enter file" name="file" required>
+                    <input type="file" class="form-control" required id="file" placeholder="Enter file" name="file" accept=".csv" required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -96,34 +104,68 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nama_karyawan" class="col-form-label">Nama Karyawan</label>
-                        <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan">
-                        <span class="text-danger error-text nama_karyawan_error"></span>
+                  <div class="row">
+                    <div class="col-lg-6 mb-2">
+                      <div class="form-group">
+                          <label for="nama_karyawan" class="col-form-label">Nama Karyawan</label>
+                          <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan">
+                          <span class="text-danger error-text nama_karyawan_error"></span>
+                      </div>
+                      <div class="form-group">
+                          <label for="usia" class="col-form-label">Usia</label>
+                          <input type="number" class="form-control" id="usia" name="usia">
+                          <span class="text-danger error-text usia_error"></span>
+                      </div>
+                      <div class="form-group">
+                          <label for="status_vaksin_1" class="col-form-label">Status Vaksin 1</label>
+                          <select class="form-control form-select" name="status_vaksin_1">
+                              <option value="">---Pilih Status Vaksin---</option>
+                              <option value="Belum">Belum Vaksin</option>
+                              <option value="Sudah">Sudah Vaksin</option>
+                          </select>
+                          <span class="text-danger error-text status_vaksin_1_error"></span>
+                      </div>
+                      <div class="form-group">
+                          <label for="status_vaksin_2" class="col-form-label">Status Vaksin 2</label>
+                          <select class="form-control form-select" name="status_vaksin_2">
+                              <option value="">---Pilih Status Vaksin---</option>
+                              <option value="Belum">Belum Vaksin</option>
+                              <option value="Sudah">Sudah Vaksin</option>
+                          </select>
+                          <span class="text-danger error-text status_vaksin_2_error"></span>
+                      </div>
                     </div>
-                    <div class="form-group">
-                        <label for="usia" class="col-form-label">Usia</label>
-                        <input type="number" class="form-control" id="usia" name="usia">
-                        <span class="text-danger error-text usia_error"></span>
+                    <div class="col-lg-6 mb-2">
+                      <div class="form-group">
+                          <label for="provinsi" class="col-form-label">Provinsi</label>
+                          <select class="form-control form-select" id="sel_prov" name="prov">
+                              <option value="">---Pilih provinsi---</option>
+                                  <?php foreach($prov as $provinsi){?>
+                              <option value="<?php echo $provinsi->id_prov;?>"><?php echo $provinsi->prov;?></option>"
+                                  <?php }?>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="kota" class="col-form-label">Kabupaten/Kota</label>
+                          <select class="form-control form-select" id="sel_kota" name="kota">
+                            <option value="">---Pilih Kabupaten/Kota---</option>
+                          </select>
+                      </div>                        
+                      <div class="form-group">
+                          <label for="kecamatan" class="col-form-label">Kecamatan</label>
+                          <select class="form-control form-select" id="sel_kec" name="kec">
+                            <option value="">---Pilih Kecamatan---</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="desa" class="col-form-label">Desa/Kelurahan</label>
+                          <select class="form-control form-select" id="sel_desa" name="desa">
+                            <option value="">---Pilih Desa/Kelurahan---</option>
+                          </select>
+                      </div>
                     </div>
-                    <div class="form-group">
-                        <label for="status_vaksin_1" class="col-form-label">Status Vaksin 1</label>
-                        <select class="form-control" name="status_vaksin_1">
-                            <option value="">---Pilih Status Vaksin---</option>
-                            <option value="Belum">Belum Vaksin</option>
-                            <option value="Sudah">Sudah Vaksin</option>
-                        </select>
-                        <span class="text-danger error-text status_vaksin_1_error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="status_vaksin_2" class="col-form-label">Status Vaksin 2</label>
-                        <select class="form-control" name="status_vaksin_2">
-                            <option value="">---Pilih Status Vaksin---</option>
-                            <option value="Belum">Belum Vaksin</option>
-                            <option value="Sudah">Sudah Vaksin</option>
-                        </select>
-                        <span class="text-danger error-text status_vaksin_2_error"></span>
-                    </div>
+                  </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>

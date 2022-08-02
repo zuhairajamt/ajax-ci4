@@ -249,7 +249,7 @@ class SSP {
 			 $limit";
         }else{
             $query =  "SELECT SQL_CALC_FOUND_ROWS `".implode("`, `", SSP::pluck($columns, 'db'))."`
-			 FROM `$table`
+			 FROM $table
 			 $where
 			 $extraWhere
 			 $groupBy
@@ -269,7 +269,7 @@ class SSP {
         // Total data set length
         $resTotalLength = SSP::sql_exec( $db,
             "SELECT COUNT(`{$primaryKey}`)
-			 FROM   `$table`"
+			 FROM   $table"
         );
         $recordsTotal = $resTotalLength[0][0];
 

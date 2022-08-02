@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Employee_model;
+use App\Models\WilayahModel;
 use CodeIgniter\Controller;
 
 class Employee extends Controller
@@ -20,12 +21,11 @@ class Employee extends Controller
         $uname['user_name'] = $session->get('user_name');
         $uname['role'] = $session->get('role');
 
-        $model = new Employee_model;
-        //$data['title']     = 'Data Vaksin Karyawan';
-        // $data['getKaryawan'] = $model->getKaryawan();
+        $model = new WilayahModel();
+        $wil['prov'] = $model->getprovinsi();
 
-        echo view('header', $uname, );
-        echo view('employee_view');
+        echo view('header', $uname);
+        echo view('employee_view', $wil);
         echo view('footer');
     }
 
@@ -69,24 +69,18 @@ class Employee extends Controller
             echo json_encode(['code' => 0, 'error' => $errors]);
         } else {
             $session = session();
-            //$user_id['user_id'] = $session->get('user_id');
             $user_id = $_SESSION['user_id'];
-            //$user_id = $_SESSION['user_id'];
-            //$autoload['libraries'] = array('session');
-
-            //Insert data into db
 
             $array = [
                 'user_id'   => $user_id,
             ];
-            
 
             $data = [
                 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
                 'usia' => $this->request->getPost('usia'),
                 'status_vaksin_1' => $this->request->getPost('status_vaksin_1'),
                 'status_vaksin_2' => $this->request->getPost('status_vaksin_2'),
-                //'user_id' => $user_id
+                'desa'            => $this->request->getPost('desa')
             ];
             $builder->set($array);
             $builder->set($data);
@@ -100,6 +94,48 @@ class Employee extends Controller
         }
     }
 
+    public function getKota() {
+ 
+        $model = new WilayahModel();
+ 
+        $postData = array(
+            'prov' => $this->request->getPost('prov'),
+        );
+ 
+        $data = $model->getkota($postData);
+        
+        // var_dump($data);
+        echo json_encode($data);
+    }    
+
+    public function getKecamatan() {
+ 
+        $model = new WilayahModel();
+ 
+        $postData = array(
+            'kota' => $this->request->getPost('kota'),
+        );
+ 
+        $data = $model->getkecamatan($postData);
+        
+        // var_dump($data);
+        echo json_encode($data);
+    }    
+
+    public function getDesa() {
+ 
+        $model = new WilayahModel();
+ 
+        $postData = array(
+            'kec' => $this->request->getPost('kec'),
+        );
+ 
+        $data = $model->getdesa($postData);
+        
+        // var_dump($data);
+        echo json_encode($data);
+    }    
+
     public function getAllEmployee()
     {
         //DB Details
@@ -110,7 +146,27 @@ class Employee extends Controller
             "db" => $this->db->database,
         );
 
-        $table = 'employees';
+        $table = <<<EOT
+        (
+            SELECT
+                employees.id,
+                employees.nama_karyawan,
+                employees.usia,
+                employees.status_vaksin_1,
+                employees.status_vaksin_2,
+                villages.desa,
+                districts.kec,
+                regencies.kota,
+                provinces.prov,
+                employees.deleted_at,
+                employees.user_id
+            FROM employees
+            LEFT JOIN villages ON villages.id_desa = employees.desa 
+            LEFT JOIN districts ON districts.id_kec = villages.district_id
+            LEFT JOIN regencies ON regencies.id_kota = districts.regency_id
+            LEFT JOIN provinces ON provinces.id_prov = regencies.province_id
+        ) temp
+        EOT;
 
         $primaryKey = "id";
 
@@ -138,8 +194,24 @@ class Employee extends Controller
                 "dt" => 4,
             ),
             array(
-                "db" => "id",
+                "db" => "desa",
                 "dt" => 5,
+            ),
+            array(
+                "db" => "kec",
+                "dt" => 6,
+            ),
+            array(
+                "db" => "kota",
+                "dt" => 7,
+            ),
+            array(
+                "db" => "prov",
+                "dt" => 8,
+            ),
+            array(
+                "db" => "id",
+                "dt" => 9,
                 "formatter" => function ($d, $row) {
                     return "<div class='btn-group'>
                                   <a class='btn btn-success btn-edit' data-id='" . $row['id'] . "' data-bs-toggle='modal' data-bs-target='#editModal' id='updateEmployeeBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></a>
@@ -150,13 +222,9 @@ class Employee extends Controller
         );
 
         $session = session();
-        //$user_id['user_id'] = $session->get('user_id');
+
         $user_id = $_SESSION['user_id'];
         $user_role =$_SESSION['role'];
-
-        // require( 'ssp.class.php');
-        
-        // $where = "deleted_at IS NULL";
 
         if($user_role === 'Admin') {
             echo json_encode(
@@ -233,6 +301,12 @@ class Employee extends Controller
                     'required' => 'Status Vaksin 2 is required',
                 ],
             ],
+            'desa' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'desa is required',
+                ],
+            ],
         ]);
 
         if ($validation->run() == false) {
@@ -245,6 +319,10 @@ class Employee extends Controller
                 'usia' => $this->request->getPost('usia'),
                 'status_vaksin_1' => $this->request->getPost('status_vaksin_1'),
                 'status_vaksin_2' => $this->request->getPost('status_vaksin_2'),
+                // 'prov'              => $this->request->getPost('prov'),
+                // 'kota'              => $this->request->getPost('kota'),
+                // 'kec'               => $this->request->getPost('kec'),
+                'desa'              => $this->request->getPost('desa')
             ];
             $update = $model->update($id, $data);
 
