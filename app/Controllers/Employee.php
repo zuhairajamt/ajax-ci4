@@ -263,12 +263,24 @@ class Employee extends Controller
         }
     }
 
+    // public function edit()
+    // {
+    //     $model = new Employee_model();
+    //     $id = $this->request->getPost("edit_id");
+    //     $data['employee'] = $model->find($id);
+    //     return $this->response->setJSON($data);
+    // }
+
     public function edit()
     {
         $model = new Employee_model();
         $id = $this->request->getPost("edit_id");
-        $data['employee'] = $model->find($id);
+
+        $data['employee'] = $model->getKaryawan($id);
+        // echo json_encode($data);
+        // $data['employee'] = $model->getEmployee($id)->getResult();
         return $this->response->setJSON($data);
+        // var_dump($data);
     }
 
     public function update()
@@ -302,7 +314,7 @@ class Employee extends Controller
                 ],
             ],
             'desa' => [
-                'rules' => 'required',
+                'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'desa is required',
                 ],
@@ -430,6 +442,7 @@ class Employee extends Controller
                             "usia" => $data[2],
                             "status_vaksin_1" => $data[3],
                             "status_vaksin_2" => $data[4],
+                            "desa" => $data[6],
                             "user_id" => $user_id,
                         );
                     }

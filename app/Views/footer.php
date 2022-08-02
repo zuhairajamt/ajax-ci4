@@ -96,7 +96,7 @@ $("#tambah").click(function(){
             data: {prov: prov},
             dataType: 'json',
             success: function(response){
-            // Remove options 
+            // Remove options
                 $('#sel_kec').find('option').not(':first').remove();
                 $('#sel_kota').find('option').not(':first').remove();
                 $('#sel_desa').find('option').not(':first').remove();
@@ -138,7 +138,7 @@ $("#tambah").click(function(){
             data: {kec: kec},
             dataType: 'json',
             success: function(response){
-            // 
+            //
             $('#sel_desa').find('option').not(':first').remove();
                 // Add options
                 $.each(response,function(index,data){
@@ -165,7 +165,7 @@ var table = $('#tabel').DataTable({
   // fixedColumns: true,
   "processing": true,
   "serverSide": true,
-  "ajax": "<?= route_to('get.all.employee'); ?>",
+  "ajax": "<?=route_to('get.all.employee');?>",
   "dom": "lBfrtip",
   buttons: [
     'csv',
@@ -219,6 +219,10 @@ $(document).on('click', '.btn-edit', function(e) {
         $('#kec_edit').val(value['kec']);
         $('#desa_edit').val(value['desa']);
         $('#editModal').modal('show');
+
+        $('#sel_kec_edit').find('option').not(':first').remove();
+        $('#sel_kota_edit').find('option').not(':first').remove();
+        $('#sel_desa_edit').find('option').not(':first').remove();
       });
     }
   });
@@ -233,7 +237,7 @@ $(document).on('click', '.btn-edit', function(e) {
             data: {prov: prov},
             dataType: 'json',
             success: function(response){
-            // Remove options 
+            // Remove options
                 $('#sel_kec_edit').find('option').not(':first').remove();
                 $('#sel_kota_edit').find('option').not(':first').remove();
                 $('#sel_desa_edit').find('option').not(':first').remove();
@@ -275,7 +279,7 @@ $(document).on('click', '.btn-edit', function(e) {
             data: {kec: kec},
             dataType: 'json',
             success: function(response){
-            // 
+            //
             $('#sel_desa_edit').find('option').not(':first').remove();
                 // Add options
                 $.each(response,function(index,data){
@@ -334,7 +338,7 @@ $(document).on('click', '.btn-update', function(e) {
 //Hapus data
 $(document).on('click', '#deleteEmployeeBtn', function() {
   var employee_id = $(this).data('id');
-  var url = "<?= route_to('delete.employee'); ?>";
+  var url = "<?=route_to('delete.employee');?>";
 
   swal.fire({
 

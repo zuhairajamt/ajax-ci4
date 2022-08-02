@@ -25,19 +25,14 @@ class Employee_model extends Model
     // }
     public function getKaryawan($id)
     {
-        return $this->db
-                    ->table('employees')
-                    ->select()
-                    ->where('id', $id)
-                    ->get()
-                    ->getResult();
-        // $builder
-        // $builder->join('villages', 'villages.id_desa = employees.desa');
-        // $builder->join('districts', 'districts.id_kec = villages.district_id');
-        // $builder->join('regencies', 'regencies.id_kec = district.regency_id');
-        // $builder->join('province', 'province.id_kec = regencies.province_id');
-        // $builder->where(['id' => $id]);
-        // return $builder->get()->getResult();
+        
+        $builder = $this->db->table($this->table);
+        $builder->join('villages', 'villages.id_desa = employees.desa', 'LEFT');
+        $builder->join('districts', 'districts.id_kec = villages.district_id', 'LEFT');
+        $builder->join('regencies', 'regencies.id_kota = districts.regency_id', 'LEFT');
+        $builder->join('provinces', 'provinces.id_prov = regencies.province_id', 'LEFT');
+        $query = $builder->getWhere(['id' => $id]);
+        return $query->getRow();
     }
 
     public function getEmployee($id) 
@@ -52,6 +47,8 @@ class Employee_model extends Model
 
         return $builder->get();
     }
+
+   
  
     // public function saveKaryawan($data)
     // {
