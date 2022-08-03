@@ -157,36 +157,56 @@ $('#tabel thead:nth-child(2) th').each(function(i) {
 
 //Menampilkan data ke tabel
 var table = $('#tabel').DataTable({
-  // orderCellsTop: true,
-  // fixedHeader: false,
-  scrollY: "600px",
-  // scrollX: true,
-  scrollCollapse: true,
-  // fixedColumns: true,
-  "processing": true,
-  "serverSide": true,
-  "ajax": "<?=route_to('get.all.employee');?>",
-  "dom": "lBfrtip",
-  buttons: [
-    'csv',
-    'excel',
-  ],
-  stateSave: true,
-  info: true,
-  "iDisplayLength": 5,
-  "pageLength": 5,
-  "aLengthMenu": [
-    [5, 10, 25, 50, -1],
-    [5, 10, 25, 50, "All"]
-  ],
-  "fnCreatedRow": function(row, data, index) {
-    $('td', row).eq(0).html(index + 1);
-  },
-  "columnDefs": [{
-    "width": "10%",
-    "targets": 0
-  }]
-});
+      // orderCellsTop: true,
+      fixedHeader: false,
+      scrollY: "600px",
+      'autoWidth': false,
+      'scrollX': true,
+      scrollCollapse: true,
+      fixedColumns: true,
+      "processing": true,
+      "serverSide": true,
+      "ajax": "<?= route_to('get.all.employee'); ?>",
+      "dom": "lBfrtp",
+      buttons: [
+        // {
+          // extend: "collection",
+          // text: "Export",
+          // buttons: [
+            {
+              extend: 'csv',
+              text: "Export CSV",
+              exportOptions: {
+                columns: [0,1,2,3,4,5,6,7,8,9]
+              },
+            },
+            {
+              extend: 'excel',
+              text: "Export Excel",
+              exportOptions: {
+                columns: [0,1,2,3,4,6,7,8,9]
+              },
+            }
+          // ]
+        // }
+      ],
+      stateSave: true,
+      info: true,
+      "iDisplayLength": 5,
+      "pageLength": 5,
+      "aLengthMenu": [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "All"]
+      ],
+      "fnCreatedRow": function(row, data, index) {
+        $('td', row).eq(0).html(index + 1);
+      },
+      "columnDefs": [{
+        "width": "10%",
+        "targets": 0
+      }]
+    });
+    table.column( 5 ).visible( false );
 
 // Filter event handler
 $(table.table().container()).on('keyup', 'thead:nth-child(2) input', function() {
