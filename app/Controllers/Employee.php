@@ -331,7 +331,7 @@ class Employee extends Controller
                 'usia'         => $this->request->getPost('usia'),
                 'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
                 'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
-                'alamat'              => $this->request->getPost('desa')
+                'alamat'              => $this->request->getPost('alamat')
             ];
             $update = $model->update($id, $data);
 
