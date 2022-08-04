@@ -5,9 +5,11 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\Employee_model;
 use App\Models\WilayahModel;
+use App\Models\View_model;
 
 class Employee extends Controller
 {
+
     public function __construct()
     {
         require_once APPPATH . 'ThirdParty/ssp.php';
@@ -19,7 +21,6 @@ class Employee extends Controller
         $session = session();
         $uname['user_name'] = $session->get('user_name');
         $uname['role'] = $session->get('role');
-
         $model = new WilayahModel();
         $wil['prov'] = $model->getprovinsi();
 
@@ -35,6 +36,7 @@ class Employee extends Controller
     public function addEmployee()
     {
         $employeeModel = new \App\Models\Employee_model();
+        $wilayahModel = new \App\Models\WilayahModel();
         $db      = \Config\Database::connect();
         $builder = $db->table('employees');
 
@@ -89,7 +91,7 @@ class Employee extends Controller
                 'usia'              => $this->request->getPost('usia'),
                 'status_vaksin_1'   => $this->request->getPost('status_vaksin_1'),
                 'status_vaksin_2'   => $this->request->getPost('status_vaksin_2'),
-                'desa'              => $this->request->getPost('desa')
+                'alamat'              => $this->request->getPost('desa')
             ];
             $builder->set($array);
             $builder->set($data);
@@ -101,8 +103,8 @@ class Employee extends Controller
                 echo json_encode(['code' => 0, 'msg' => 'Data karyawan gagal ditambahkan']);
             }
         }
-    }
-
+    }    
+    
     public function getKota() {
  
         $model = new WilayahModel();
@@ -115,7 +117,7 @@ class Employee extends Controller
         
         // var_dump($data);
         echo json_encode($data);
-    }    
+    }
 
     public function getKecamatan() {
  
@@ -143,21 +145,11 @@ class Employee extends Controller
         
         // var_dump($data);
         echo json_encode($data);
-    }
+    }    
 
     public function getAllEmployee()
     {
-        // $db = \Config\Database::connect();
-        // $builder = $db->table('employees')
-        //         ->select(['nama_karyawan', 'usia', 'status_vaksin_1', 'status_vaksin_2', 'deleted_at'])
-        //         ->where('deleted_at',NULL);
-        // // $query = $builder->where('deleted_at',NULL);
-
-        // return DataTable::of($builder)
-        //         ->addNumbering()
-        //         ->toJson();
-
-        // DB Details
+        //DB Details
         $dbDetails = array(
             "host" => $this->db->hostname,
             "user" => $this->db->username,
@@ -165,27 +157,29 @@ class Employee extends Controller
             "db" => $this->db->database,
         );
 
+        // $table = "employees"; //langsung dr tabel employees
         $table = <<<EOT
         (
             SELECT
             employees.id,
             employees.nama_karyawan,
             employees.usia,
+            employees.user_id,
             employees.status_vaksin_1,
             employees.status_vaksin_2,
-            employees.alamat,
             villages.desa,
             districts.kec,
             regencies.kota,
             provinces.prov,
-            employees.deleted_at
+            employees.deleted_at,
+            employees.alamat
             FROM employees
             LEFT JOIN villages ON villages.id_desa = employees.alamat 
             LEFT JOIN districts ON districts.id_kec = villages.district_id
             LEFT JOIN regencies ON regencies.id_kota = districts.regency_id
             LEFT JOIN provinces ON provinces.id_prov = regencies.province_id
         ) temp
-        EOT;
+        EOT; //dari tabel view tp data tidak otomatis update
         $primaryKey = "id";
 
         $columns = array(
@@ -234,7 +228,7 @@ class Employee extends Controller
                 "dt" => 10,
                 "formatter" => function ($d, $row) {
                     return "<div class='btn-group'>
-                                  <a class='btn btn-success btn-edit' data-id='" . $row['id'] . "' data-bs-toggle='modal' data-bs-target='#editModal' id='updateEmployeeBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></a>
+                                  <a class='btn btn-success btn-edit kota' data-id='" . $row['id'] . "' data-bs-toggle='modal' data-bs-target='#editModal' id='updateBtn' style='margin-right: 10px'><i class='ti ti-edit'></i></a>
                                   <button class='btn btn btn-danger' data-id='" . $row['id'] . "' id='deleteEmployeeBtn'> <i class='ti ti-trash'></i></button>
                              </div>";
                 }
@@ -246,7 +240,7 @@ class Employee extends Controller
         $user_id = $_SESSION['user_id'];
         $role = $_SESSION['role'];
 
-        if($role === 'admin') {
+        if($role === 'Admin') {
             echo json_encode(
                 \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns, null, "deleted_at IS NULL")
             );
@@ -255,20 +249,20 @@ class Employee extends Controller
                 \SSP::simple($_GET, $dbDetails, $table, $primaryKey, $columns, null, "user_id='$user_id' AND deleted_at IS NULL")
             );
         }
-        //https://www.gyrocode.com/articles/jquery-datatables-using-where-join-and-group-by-with-ssp-class-php/
     }
 
-    public function getEmployeeInfo()
-    {
-        $employeeModel = new \App\Models\Employee_model();
-        $employeeId = $this->request->getPost('id');
-        $info = $employeeModel->find($employeeId);
-        if ($info) {
-            echo json_encode(['code' => 1, 'msg' => '', 'results' => $info]);
-        } else {
-            echo json_encode(['code' => 0, 'msg' => 'No results found', 'results' => null]);
-        }
-    }
+    //menampilkan data ke modal edit berdasarkan id 
+    // public function getEmployeeInfo()
+    // {
+    //     $employeeModel = new \App\Models\Employee_model();
+    //     $employeeId = $this->request->getPost('id');
+    //     $info = $employeeModel->find($employeeId);
+    //     if ($info) {
+    //         echo json_encode(['code' => 1, 'msg' => '', 'results' => $info]);
+    //     } else {
+    //         echo json_encode(['code' => 0, 'msg' => 'No results found', 'results' => null]);
+    //     }
+    // }
 
     public function deleteEmployee()
     {
@@ -325,12 +319,6 @@ class Employee extends Controller
                     'required' => 'Status Vaksin 2 is required'
                 ]
             ]
-            // 'desa' => [
-            //     'rules' => 'required|numeric',
-            //     'errors' => [
-            //         'required' => 'desa is required'
-            //     ]
-            // ]
         ]);
 
         if ($validation->run() == FALSE) {
@@ -339,13 +327,10 @@ class Employee extends Controller
         } else {
             $id = $this->request->getPost("edit_id");
             $data = [
-                'nama_karyawan'     => $this->request->getPost('nama_karyawan'),
-                'usia'              => $this->request->getPost('usia'),
-                'status_vaksin_1'   => $this->request->getPost('status_vaksin_1'),
-                'status_vaksin_2'   => $this->request->getPost('status_vaksin_2'),
-                // 'prov'              => $this->request->getPost('prov'),
-                // 'kota'              => $this->request->getPost('kota'),
-                // 'kec'               => $this->request->getPost('kec'),
+                'nama_karyawan' => $this->request->getPost('nama_karyawan'),
+                'usia'         => $this->request->getPost('usia'),
+                'status_vaksin_1'  => $this->request->getPost('status_vaksin_1'),
+                'status_vaksin_2'  => $this->request->getPost('status_vaksin_2'),
                 'alamat'              => $this->request->getPost('alamat')
             ];
             $update = $model->update($id, $data);
@@ -358,6 +343,79 @@ class Employee extends Controller
                 return $this->response->setJSON($output);
             }
         }
+    }
+
+
+    //----------------------- Import csv -----------------------//
+    public function importCsvToDb()
+    {
+        $input = $this->validate([
+            'file' => 'uploaded[file]|max_size[file,8024]|ext_in[file,csv],'
+        ]);
+        if (!$input) {
+            $data['validation'] = $this->validator;
+            return view('index', $data); 
+        }else{
+            if($file = $this->request->getFile('file')) {
+            if ($file->isValid() && ! $file->hasMoved()) {
+                $newName = $file->getRandomName();
+                $file->move('../public/csvfile', $newName);
+                $file = fopen("../public/csvfile/".$newName,"r");
+                $i = 0;
+                $numberOfFields = 6;
+                $csvArr = array();
+                
+                while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
+                    $num = count($filedata);
+                    if($i > 0 && $num == $numberOfFields){ 
+                        
+                        // $csvArr[$i]['No.'] = $filedata[0];
+                        // $csvArr[$i]['Nama Kayawan'] = $filedata[1];
+                        // $csvArr[$i]['Usia'] = $filedata[2];
+                        // $csvArr[$i]['Status Vaksin 1'] = $filedata[3];
+                        // $csvArr[$i]['Status Vaksin 2'] = $filedata[4];
+                        // $csvArr[$i]['Aksi'] = $filedata[5];
+
+                        // $csvArr[$i]['id' || 'No'] = $filedata[0];
+                        // $csvArr[$i]['nama_karyawan' || 'Nama Karyawan'] = $filedata[1];
+                        // $csvArr[$i]['usia' || 'Usia'] = $filedata[2];
+                        // $csvArr[$i]['status_vaksin_1' || 'Status Vaksin 1'] = $filedata[3];
+                        // $csvArr[$i]['status_vaksin_2' || 'Status Vaksin 2'] = $filedata[4];
+                        // $csvArr[$i]['aksi' || 'Aksi'] = $filedata[5];
+
+                        $csvArr[$i]['id'] = $filedata[0];
+                        $csvArr[$i]['nama_karyawan'] = $filedata[1];
+                        $csvArr[$i]['usia'] = $filedata[2];
+                        $csvArr[$i]['status_vaksin_1'] = $filedata[3];
+                        $csvArr[$i]['status_vaksin_2'] = $filedata[4];
+                        $csvArr[$i]['aksi'] = $filedata[5];
+                    }
+                    $i++;
+                }
+                fclose($file);
+                $count = 0;
+                foreach($csvArr as $userdata){
+                    $employee = new Employee_model();
+                    $findRecord = $employee->where('id', $userdata['id'])->countAllResults();
+                    if($findRecord == 0){
+                        if($employee->insert($userdata)){
+                            $count++;
+                        }
+                    }
+                }
+                session()->setFlashdata('message', $count.' rows successfully added.');
+                session()->setFlashdata('alert-class', 'alert-success');
+            }
+            else{
+                session()->setFlashdata('message', 'CSV file coud not be imported.');
+                session()->setFlashdata('alert-class', 'alert-danger');
+            }
+            }else{
+            session()->setFlashdata('message', 'CSV file coud not be imported.');
+            session()->setFlashdata('alert-class', 'alert-danger');
+            }
+        }
+        return redirect()->route('/');         
     }
 
     public function uploadEmployee()

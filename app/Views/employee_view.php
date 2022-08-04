@@ -1,6 +1,6 @@
-<div class="container pt-5">
+<div class="container-fluid pt-5">
     <div class="text-right">
-        <a href="#" class="btn btn-primary" id="tambah" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</a>
+        <a id="tambah" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</a>
         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importModal">Import Data</a>
 
     </div>
@@ -15,15 +15,16 @@
                 <table id="tabel" class="table card-table table-vcenter text-nowrap datatable stripe hover">
                     <thead>
                         <tr>
-                        <th class="text-center">No.</th>
+                            <th class="text-center">No.</th>
                             <th class="text-center">Nama Karyawan</th>
                             <th class="text-center">Usia</th>
                             <th class="text-center">Status Vaksin 1</th>
-                            <th class="text-center">Status Vaksin 2</th>
+                            <th class="text-center">Status Vaksin 2</th>                            
                             <th class="text-center">Desa</th>
                             <th class="text-center">Kecamatan</th>
                             <th class="text-center">Kota</th>
                             <th class="text-center">Provinsi</th>
+                            <th class="text-center">ID Desa</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -38,6 +39,7 @@
                             <th>Kecamatan</th>
                             <th>Kota</th>
                             <th>Provinsi</th>
+                            <!-- <th>ID Desa</th> -->
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -69,18 +71,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
-            <?php
-            if (session()->get("success")) {
-            ?>
-                <div class="alert alert-success">
-                    <?= session()->get("success") ?>
-                </div>
-            <?php
-            }
-            ?>
             <div class="modal-body">
                 <div class="form-group">
-                    <input type="file" class="form-control" required id="file" placeholder="Enter file" name="file" accept=".csv" required>
+                    <input type="file" class="form-control" accept=".csv" id="file" placeholder="Enter file" name="file" required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -108,12 +101,12 @@
                     <div class="col-lg-6 mb-2">
                       <div class="form-group">
                           <label for="nama_karyawan" class="col-form-label">Nama Karyawan</label>
-                          <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan">
+                          <input type="text" class="form-control" id="nama_karyawan" name="nama_karyawan" placeholder="Masukkan nama" maxlength="50">
                           <span class="text-danger error-text nama_karyawan_error"></span>
                       </div>
                       <div class="form-group">
                           <label for="usia" class="col-form-label">Usia</label>
-                          <input type="number" class="form-control" id="usia" name="usia">
+                          <input type="number" class="form-control" id="usia" name="usia" placeholder="Masukkan usia" min="1" max="100">
                           <span class="text-danger error-text usia_error"></span>
                       </div>
                       <div class="form-group">
@@ -165,7 +158,6 @@
                       </div>
                     </div>
                   </div>
-                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
